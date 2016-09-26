@@ -16,3 +16,11 @@ float lerp(float start, float end, float t);
 
 struct point { float x, y; };
 float distance(point p1, point p2);
+
+struct inner { float x, y, z; };
+float INNER(inner P1, inner q1);
+
+struct Plane { float a, b , c , d; };
+struct Xoint { float x, y, z; };
+float Point(Plane plane, Xoint point);
+
