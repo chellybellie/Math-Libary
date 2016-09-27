@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include "Test.h"
+#include "vec-2.h"
 int main()
 {
 	assert(donothing(0) == 5);
@@ -21,6 +22,23 @@ int main()
 	assert(INNER({ 0, 0, 0, }, { 0, 0, 0 }) == 0);
 
 	assert(Point({0, 0, 1, 1, }, { 0, 2, 0 }) == 1);
+
+	////////////////////VECTOR TESTS//////////////////
+
+	assert( (vec2{ 0,0 } == vec2{ 0,0 }) );
+	
+	assert((vec2{ 1,1 } + vec2{ -1,0 } == vec2{ 0,1 }));
+	assert((vec2{ 1,1 } - vec2{ 0,0 } == vec2{ 1,1 }));
+	assert((vec2{ 1,1 } * vec2{ 0,0 } == vec2{ 0,0 }));
+	assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1,1 }));
+
+	assert(((vec2{ 1,1 } * 1.f) == vec2{ 1, 1 }));
+	assert(((1.f * vec2{ 1,1 }) == vec2{ 1, 1 }));
+	assert(((vec2{ 1,1 } /1.f) == vec2{ 1, 1 }));
+	assert(((1.f / vec2{ 1,1 }) == vec2{ 1, 1 }));
+
+	//assert(())
+	assert((-vec2{ 1 ,1 } == vec2{ -1, -1 }));
 
 
 	return 0;
