@@ -39,7 +39,7 @@ float lerp(float start, float end, float t)
 {
 	return start + t*(end - start);
 	
-}
+} 
 //struct point { float x, y; };
 
 float distance(point p1, point p2)
