@@ -21,7 +21,7 @@ vec3 operator/(const vec3 & lhs, const vec3 & rhs)
 }
 
 
-vec3 operator*(const vec3 & rhs, float & lhs)
+vec3 operator*(const vec3 & rhs, float lhs)
 {
 	return  vec3{ rhs.x *lhs, rhs.y * lhs, rhs.x * lhs };
 }
@@ -31,7 +31,7 @@ vec3 operator*(float rhs, const vec3 & lhs)
 	return vec3{ lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
 }
 
-vec3 operator/(const vec3 & lhs, float & rhs)
+vec3 operator/(const vec3 & lhs, float rhs)
 {
 	return vec3{ lhs.x / rhs, lhs.y / rhs, lhs.z / rhs};
 }
@@ -83,4 +83,13 @@ bool operator!=(const vec3 &lhs, const vec3 &rhs)
 float magnitude(const vec3 & v)
 {
 	return (sqrt((v.x*v.x) + (v.y * v.y) + (v.z*v.z)));
+}
+
+vec3 normal(const vec3 & v)
+{
+	return ( v / (magnitude(v)));
+}
+vec3 cross(const vec3 & lhs, const vec3 & rhs)
+{
+	return  vec3{ (rhs.y*lhs.z) - (rhs.z*lhs.y), (rhs.z* lhs.x) - (rhs.x* lhs.z), (rhs.x*lhs.y) - (rhs.y*lhs.x) };
 }

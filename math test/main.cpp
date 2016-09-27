@@ -2,6 +2,9 @@
 #include <iostream>
 #include "Test.h"
 #include "vec-2.h"
+#include "vec-3.h"
+#include "flops.h"
+#include <cmath>
 int main()
 {
 	assert(donothing(0) == 5);
@@ -37,9 +40,33 @@ int main()
 	assert(((vec2{ 1,1 } /1.f) == vec2{ 1, 1 }));
 	assert(((1.f / vec2{ 1,1 }) == vec2{ 1, 1 }));
 
-	//assert(())
-	assert((-vec2{ 1 ,1 } == vec2{ -1, -1 }));
+	
+	assert((-(vec2{ 1 ,1 }) == vec2{ -1, -1 }));
+	assert((vec2{ 0,0 } == vec2{ 0,0 } - vec2{ 0, 0 }));
+	assert((vec2{ 0,0 } == vec2{ 0,0 } + vec2{ 0, 0 }));
+	assert((vec2{ 0,0 } == vec2{ 0,0 } * vec2{ 0, 0 }));
+	assert((vec2{ 1,1 } == vec2{ 1,1 } / vec2{ 1, 1 }));
 
+	assert((vec2{ 1,1 } == vec2{ 1,1 }));
+	assert((vec2{ 1,1 } != vec2{ 2,2 }));
+
+
+
+	assert(fequals(magnitude(vec2{ 4,0 }) , 4));
+	assert(fequals(magnitude(vec2{ -4,0 }), 4));
+
+	//assert(fequals(normal(vec2{ 4,0 }), 4));
+
+	assert(fequals(dot(vec2{ 5,4 }, vec2{ 1,0 }), 5));
+	assert(fequals(angleBetween(vec2{ 0,1 }, vec2{ 1,0 }), deg2rad(90)));
+	//assert(perp)
+	assert((fromangle(0) == vec2{ 1,0 }));
+	assert((cross(vec3{ 1, 0, 0 }, vec3{ 0, 1, 0 }) == vec3{0,0,1}));
+
+
+
+	
+	assert(fequals(1, .9999999f));
 
 	return 0;
 
