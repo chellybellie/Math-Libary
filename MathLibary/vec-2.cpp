@@ -40,7 +40,7 @@ vec2 operator/(float lhs, const vec2 & rhs)
 {
 	return vec2{ rhs.x / lhs, rhs.y / lhs };
 }
-
+ 
 
 vec2 operator-(const vec2 & v)
 {
