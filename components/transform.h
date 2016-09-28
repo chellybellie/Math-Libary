@@ -5,6 +5,8 @@
 class Transform
 {
 public:
+	Transform();
+	Transform(float x, float y);
 	vec2 position;
 	vec2 scale;
 	float facing;
