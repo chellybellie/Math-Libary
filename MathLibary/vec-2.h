@@ -37,3 +37,9 @@ vec2 perp(const vec2 &v);
 float angle(const vec2 &v);
 
 vec2 fromangle(float a);
+
+vec2 lerp(const vec2 &start, const vec2 &end, float alpha);
+vec2 quadBezier(vec2 &start, vec2 &mid, vec2 &end, float alpha);
+vec2 hermitspline(vec2 &start, vec2 &s_tan, vec2 &end, vec2 &e_tan, float alpha);
+vec2 cardinalSpline(vec2 &start, vec2 &mid, vec2 &end, vec2 &tightness, float alpha);
+vec2 catRomSpline(vec2 &start, vec2 &mid, vec2 &end, float alpha);
