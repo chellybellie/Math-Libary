@@ -1,7 +1,6 @@
 #pragma once
 #include "vec-2.h"
 
-
 class Transform
 {
 public:
@@ -13,6 +12,7 @@ public:
 
 	vec2 getDirection();
 	void setDirection(const vec2 &dir);
+	void transform(float x = 0, float y = 0, float w = 1, float h = 1, float a = 0 );
 
 	void debugDraw();
 

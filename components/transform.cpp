@@ -30,12 +30,12 @@ void Transform::setDirection(const vec2 & dir)
 
 void Transform::debugDraw()
 {
-		sfw::drawCircle(position.x, position.y, 20);
+	sfw::drawCircle(position.x, position.y, 20, 20, BLACK);
+	sfw::drawCircle(position.x, position.y, 8, 8, RED);
+	vec2 dirEnd = position + getDirection() * scale.x * 4;
+	vec2 upEnd = position - perp(getDirection()) * scale.y * 4;
 
-		vec2 dirEnd = position + getDirection()*12;
-		vec2 upEnd = position - perp(getDirection()) * 12;
-
-		sfw::drawLine(position.x, position.y, dirEnd.x, dirEnd.y, RED);
-		sfw::drawLine(position.x, position.y, upEnd.x, upEnd.y, GREEN);
+	sfw::drawLine(position.x, position.y, dirEnd.x, dirEnd.y, GREEN);
+	sfw::drawLine(position.x, position.y, upEnd.x, upEnd.y, GREEN);
 
 }
