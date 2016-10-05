@@ -8,13 +8,19 @@ public:
 	Rigidbody();
 
 	vec2 velocity;
-	float angularVelocity;
+	vec2 acceleration;	
+	vec2 impulse;
+	vec2 force;
 
-	vec2 acceleration;
+	float angularVelocity;
+	float mass;
+	float drag;
+	float torque;
 	float angularAcceleration;
-	void addForce(const vec2 &force);
-	void addImpulde(const vec2 &impulse);
-	void addTorque(float torque);
+	void addForce(const vec2 &a_force);
+	void addImpulde(const vec2 &a_impulse);
+	void addTorque(float a_torque);
 
 	void integrate(Transform &trans, float deltaTime);
+	void debugDraw(const Transform &trans);
 };

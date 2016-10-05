@@ -23,17 +23,16 @@ void main()
 			float deltaTime = sfw::getDeltaTime();
 
 			Playerctrl.update(Playerloco);
+			Playerloco.update(playerTransform, playerRigidbody, deltaTime);
 			playerRigidbody.integrate(playerTransform, deltaTime);
-			Playerloco.update(playerRigidbody, deltaTime);
-		
-		
 	
 			if (playerTransform.position.x < 0)	playerTransform.position.x = W;
 			else if (playerTransform.position.x > W)	playerTransform.position.x = 0.f;
 			if (playerTransform.position.y < 0)	playerTransform.position.y = H;
 			else if (playerTransform.position.y> H)	playerTransform.position.y = 0.0F;
 
-		playerTransform.debugDraw();
+			playerRigidbody.debugDraw(playerTransform);
+			playerTransform.debugDraw();
 		}
 		sfw::termContext();
 	
