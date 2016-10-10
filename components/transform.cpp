@@ -9,7 +9,7 @@ Transform::Transform()
 	scale.x = 28;
 	scale.y = 8;
 
-	facing = 0;
+	facing = 80;
 }
 
 Transform::Transform(float x, float y): Transform()

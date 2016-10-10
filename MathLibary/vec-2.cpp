@@ -148,3 +148,11 @@ vec2 catRomSpline(vec2 &start, vec2 &mid, vec2 &end, float alpha)
 	return retval;
 }
 
+float vec2::operator[](unsigned idx) const
+{
+	return v[idx];
+}
+float &vec2::operator[](unsigned idx) 
+{
+	return v[idx];
+}

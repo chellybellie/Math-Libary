@@ -6,8 +6,8 @@ Spaceshiplocomotion::Spaceshiplocomotion()
 	vertThrust = 0.0f;
 	horzThrust = 0.f;
 	breakPower = 5.f;
-	turn = 4.f;
-	speed = 90.0f;
+	turn = 1.5f;
+	speed = 150.0f;
 	maxSpeed = 1000.f;
 
 }

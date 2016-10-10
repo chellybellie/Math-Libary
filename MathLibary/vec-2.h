@@ -1,7 +1,13 @@
 #pragma once
-struct vec2
+union vec2
 {
+	float v[2];
+	struct
+	{
 	float x, y;
+	};
+	float operator[](unsigned idx)const;
+	float &operator [](unsigned idx);
 };
 vec2 operator+(const vec2 &lhs, const vec2 &rhs);
 vec2 operator-(const vec2 &lhs, const vec2 &rhs);
