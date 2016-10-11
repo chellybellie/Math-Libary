@@ -112,12 +112,14 @@
   <ItemGroup>
     <ClInclude Include="flops.h" />
     <ClInclude Include="matrix2.h" />
+    <ClInclude Include="matrix3.h" />
     <ClInclude Include="vec-2.h" />
     <ClInclude Include="vec-3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="flops.cpp" />
     <ClCompile Include="matrix2.cpp" />
+    <ClCompile Include="matrix3.cpp" />
     <ClCompile Include="vec-2.cpp" />
     <ClCompile Include="vec-3.cpp" />
   </ItemGroup>

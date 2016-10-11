@@ -1,0 +1,28 @@
+#pragma once
+#include "vec-3.h"
+union mat3
+{
+	float m[9];
+	float mm[3][3];
+	vec3 c[3];
+
+	vec3 operator[](unsigned idx) const;
+	vec3 &operator[](unsigned idx);
+
+
+};
+mat3 mat3identity();
+mat3 transpose(const mat3 & m1);
+
+bool operator==(const mat3 &m1, const mat3 &m2);
+bool operator!=(const mat3 &m1, const mat3 &m2);
+mat3 operator+(mat3 m1, const mat3 &m2);
+mat3 operator-(mat3 m1, const mat3 &m2);
+mat3 operator -(mat3 &mm1);
+
+mat3 operator*(const mat3 &m1, float m2);
+mat3 operator*(float m1, const mat3 &m2);
+mat3 operator*(mat3 &A, const mat3 &B);
+mat3 operator*(mat3 &A, const vec3 &B);
+mat3 inverse(const mat3 &D);
+float determinat(const mat3 &D);

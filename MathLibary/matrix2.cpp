@@ -6,7 +6,7 @@
 
 mat2 mat2identity()
 {
-	return mat2();
+	return mat2{ 1,0,0,1 };
 }
 
 mat2 transpose(const mat2 & idx)
@@ -78,8 +78,8 @@ mat2 operator*(const mat2 & A, const mat2 & B)
 vec2 operator*(const mat2 & A, const vec2 & B)
 {
 	return vec2{
-		((A.m[0] * B.x) + (A.m[1] * B.y)),
-		((A.m[2] * B.x) + (A.m[3] * B.y)),
+		((A.m[0] * B.x) + (A.m[2] * B.y)),
+		((A.m[1] * B.x) + (A.m[3] * B.y)),
 	};
 }
 

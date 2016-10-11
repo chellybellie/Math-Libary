@@ -6,6 +6,7 @@
 #include "flops.h"
 #include <cmath>
 #include "matrix2.h"
+#include "matrix3.h"
 int main()
 {
 	
@@ -72,6 +73,9 @@ int main()
 	assert(m1 == m1);
 	assert(inverse(m1) == m1);
 	assert(transpose(m1) == m1);
+	mat3 m3 = mat3{ 0,0,0,0 };
+	mat3 m4 = mat3identity();
+	assert(inverse(m3)== m3);
 
 	return 0;
 
