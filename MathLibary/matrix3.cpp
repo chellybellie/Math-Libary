@@ -1,11 +1,13 @@
 #include "vec-3.h"
 #include "matrix3.h"
 #include "flops.h"
-
+#include <cmath>
 
 mat3 mat3identity()
 {
-	return mat3{ 1,0,0,0,1,0,0,0,1 };
+	return mat3{ 1,0,0,
+				 0,1,0,
+				 0,0,1 };
 }
 
 mat3 transpose(const mat3 & idx)
@@ -85,13 +87,15 @@ mat3 operator*(float m1, const mat3 &m2)
 mat3 operator*(mat3 &A, const mat3 &B)
 {
 	return mat3{((A.m[0] * B.m[0]) + (A.m[3] * B.m[1]) + (A.m[6] * B.m[2])),
-				((A.m[0] * B.m[3]) + (A.m[3] * B.m[4]) + (A.m[6] * B.m[5])),
-				((A.m[0] * B.m[6]) + (A.m[3] * B.m[7]) + (A.m[6] * B.m[8])),
 				((A.m[1] * B.m[0]) + (A.m[4] * B.m[1]) + (A.m[7] * B.m[2])),
-				((A.m[1] * B.m[3]) + (A.m[4] * B.m[4]) + (A.m[7] * B.m[5])),
-				((A.m[1] * B.m[6]) + (A.m[4] * B.m[7]) + (A.m[7] * B.m[8])),
 				((A.m[2] * B.m[0]) + (A.m[5] * B.m[1]) + (A.m[8] * B.m[2])),
+
+				((A.m[0] * B.m[3]) + (A.m[3] * B.m[4]) + (A.m[6] * B.m[5])),
+				((A.m[1] * B.m[3]) + (A.m[4] * B.m[4]) + (A.m[7] * B.m[5])),
 				((A.m[2] * B.m[3]) + (A.m[5] * B.m[4]) + (A.m[8] * B.m[5])),
+
+				((A.m[0] * B.m[6]) + (A.m[3] * B.m[7]) + (A.m[6] * B.m[8])),				
+				((A.m[1] * B.m[6]) + (A.m[4] * B.m[7]) + (A.m[7] * B.m[8])),
 				((A.m[2] * B.m[6]) + (A.m[5] * B.m[7]) + (A.m[8] * B.m[8]))};
 }
 vec3 operator*(const mat3 & A, const vec3 & B)
@@ -113,6 +117,25 @@ float determinat(const mat3 &D)
 		  (D.m[6] * D.m[4] * D.m[8]) - (D.m[6] * D.m[4] * D.m[2]) -
 		  (D.m[3] * D.m[1] * D.m[5]) - (D.m[0] * D.m[7] * D.m[5]));
 
+}
+mat3 scale(float w, float h)
+{
+	
+	return mat3{ w,0,0,
+				 0,h,0,
+				 0,0,1};
+}
+mat3 translate(float x, float y)
+{
+	return mat3{ 0,0,x,
+				 0,0,y,
+				 0,0,1};
+}
+mat3 rotation(float a)
+{
+	return mat3{  cos(a), sin(a), 0,
+				 -sin(a), cos(a), 0,
+				  0     , 0     , 1};
 }
 vec3 mat3::operator[](unsigned idx) const
 {

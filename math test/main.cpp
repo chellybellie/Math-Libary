@@ -77,6 +77,15 @@ int main()
 	mat3 m4 = mat3identity();
 	assert(inverse(m3)== m3);
 
+
+	vec3 j = { 2,5,1 };
+
+	/*vec3 r = rotation(deg2rad(90))*j;*/
+
+	assert((scale(5, 1) * j == vec3{ 10, 5,1 }));
+	assert((rotation(deg2rad(90))*j == vec3{ -5,2,1 }));
+	assert((translate(0, 3)*j == vec3{ 2,8,1 }));
+
 	return 0;
 
 	return 0;
