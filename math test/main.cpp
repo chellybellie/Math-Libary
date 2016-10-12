@@ -71,16 +71,16 @@ int main()
 	mat2 m1 = mat2{ 0,0,0,0 };
 	mat2 m2 = mat2identity();
 	assert(m1 == m1);
-	assert(inverse(m1) == m1);
+	assert(inverse(m2) == m2);
 	assert(transpose(m1) == m1);
-	mat3 m3 = mat3{ 0,0,0,0 };
+	mat3 m3 = mat3{ 1, 2, 3, 4, 5, 6, 7, 0, 9 };
 	mat3 m4 = mat3identity();
-	assert(inverse(m3)== m3);
+	assert(inverse(m3)*m3 == m4);
 
 
 	vec3 j = { 2,5,1 };
-
-	/*vec3 r = rotation(deg2rad(90))*j;*/
+	vec3 s = scale(5, 1) *j;
+	vec3 r = rotation(deg2rad(90))*j;
 
 	assert((scale(5, 1) * j == vec3{ 10, 5,1 }));
 	assert((rotation(deg2rad(90))*j == vec3{ -5,2,1 }));

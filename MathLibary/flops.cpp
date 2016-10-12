@@ -3,7 +3,7 @@
 
 bool fequals(float lhs, float rhs)
 {
-	if (abs(lhs - rhs) < 0.0000001f)
+	if (abs(lhs - rhs) < 0.00001f)
 		return true;
 	else return false;
 }

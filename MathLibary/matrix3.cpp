@@ -1,6 +1,7 @@
 #include "vec-3.h"
 #include "matrix3.h"
 #include "flops.h"
+#include "matrix2.h"
 #include <cmath>
 
 mat3 mat3identity()
@@ -84,7 +85,7 @@ mat3 operator*(float m1, const mat3 &m2)
 		m2.m[4] * m1, m2.m[5] * m1, m2.m[6] * m1, m2.m[7] * m1,
 		m2.m[8] * m1 };
 }
-mat3 operator*(mat3 &A, const mat3 &B)
+mat3 operator*(const mat3 &A, const mat3 &B)
 {
 	return mat3{((A.m[0] * B.m[0]) + (A.m[3] * B.m[1]) + (A.m[6] * B.m[2])),
 				((A.m[1] * B.m[0]) + (A.m[4] * B.m[1]) + (A.m[7] * B.m[2])),
@@ -108,28 +109,40 @@ vec3 operator*(const mat3 & A, const vec3 & B)
 
 mat3 inverse(const mat3 &D)
 {
-	return (1 / (determinat(D)) * transpose(D));
+	mat3 retval = D;
+
+	//determinat(mat2{ D[1][1], D[1][2], D[2][1], D[2][2] });	
+	//D[1][1] * D[2][2] - D[1][2] * D[2][1];	
+
+	retval[0] = cross(D[1], D[2]);
+	retval[1] = cross(D[2], D[0]);
+	retval[2] = cross(D[0], D[1]);
+
+	return (1 / (determinat(D)) * transpose(retval));
 }
 
 float determinat(const mat3 &D)
 {
-	return float((D.m[0] * D.m[4] * D.m[1]) + (D.m[3] * D.m[7] * D.m[2]) +
-		  (D.m[6] * D.m[4] * D.m[8]) - (D.m[6] * D.m[4] * D.m[2]) -
-		  (D.m[3] * D.m[1] * D.m[5]) - (D.m[0] * D.m[7] * D.m[5]));
+	//float A = D.m[4] * D.m[8] - D.m[5] * D.m[7];
+	//float B = D.m[4] * D.m[8] - D.m[5] * D.m[6];
+	//float C = D.m[3] * D.m[7] - D.m[5] * D.m[6];A
+
+	return dot(D[0], cross(D[1],D[2]));
+	//return A*D.m[0] - B*D.m[1] + C*D.m[2];
+
+	//return float((D.m[0] * D.m[4] * D.m[1]) + (D.m[3] * D.m[7] * D.m[2]) +
+	//	         (D.m[6] * D.m[4] * D.m[8]) - (D.m[6] * D.m[4] * D.m[2]) -
+	//	         (D.m[3] * D.m[1] * D.m[5]) - (D.m[0] * D.m[7] * D.m[5]));
 
 }
 mat3 scale(float w, float h)
 {
 	
-	return mat3{ w,0,0,
-				 0,h,0,
-				 0,0,1};
+	return mat3{ w,0,0, 0,h,0, 0,0,1};
 }
 mat3 translate(float x, float y)
 {
-	return mat3{ 0,0,x,
-				 0,0,y,
-				 0,0,1};
+	return mat3{ 1,0,0, 0,1,0, x,y,1};
 }
 mat3 rotation(float a)
 {

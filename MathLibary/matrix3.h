@@ -17,9 +17,9 @@ mat3 transpose(const mat3 & m1);
 
 bool operator==(const mat3 &m1, const mat3 &m2);
 bool operator!=(const mat3 &m1, const mat3 &m2);
-mat3 operator+(mat3 m1, const mat3 &m2);
-mat3 operator-(mat3 m1, const mat3 &m2);
-mat3 operator -(mat3 &mm1);
+mat3 operator+(const mat3 &m1, const mat3 &m2);
+mat3 operator-(const mat3 &m1, const mat3 &m2);
+mat3 operator -(const mat3 &mm1);
 
 mat3 operator*(const mat3 &m1, float m2);
 mat3 operator*(float m1, const mat3 &m2);

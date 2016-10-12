@@ -15,7 +15,7 @@ void main()
 		SpaceshipController Playerctrl;
 		Spaceshiplocomotion Playerloco;
 		Transform playerTransform(200, 200);
-		playerTransform.scale = { 5,5 };
+		playerTransform.m_scale = { 5,5 };
 		Rigidbody playerRigidbody;
 
 		while (sfw::stepContext())
@@ -26,10 +26,10 @@ void main()
 			Playerloco.update(playerTransform, playerRigidbody, deltaTime);
 			playerRigidbody.integrate(playerTransform, deltaTime);
 	
-			if (playerTransform.position.x < 0)	playerTransform.position.x = W;
-			else if (playerTransform.position.x > W)	playerTransform.position.x = 0.f;
-			if (playerTransform.position.y < 0)	playerTransform.position.y = H;
-			else if (playerTransform.position.y> H)	playerTransform.position.y = 0.0F;
+			if (playerTransform.m_position.x < 0)	playerTransform.m_position.x = W;
+			else if (playerTransform.m_position.x > W)	playerTransform.m_position.x = 0.f;
+			if (playerTransform.m_position.y < 0)	playerTransform.m_position.y = H;
+			else if (playerTransform.m_position.y> H)	playerTransform.m_position.y = 0.0F;
 
 			playerRigidbody.debugDraw(playerTransform);
 			playerTransform.debugDraw();

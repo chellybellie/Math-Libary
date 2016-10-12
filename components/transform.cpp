@@ -3,19 +3,24 @@
 
 Transform::Transform()
 {
-	position.x = 0;
-	position.y = 0;
+	m_position.x = 0;
+	m_position.y = 0;
 
-	scale.x = 28;
-	scale.y = 8;
+	m_scale.x = 28;
+	m_scale.y = 8;
 
-	facing = 80;
+	m_facing = 80;
 }
 
-Transform::Transform(float x, float y): Transform()
+Transform::Transform(float x, float y, float w, float h, float a)
 {
-	position.x = x;
-	position.y = y;
+	m_position.x = x;
+	m_position.y = y;
+
+	m_scale.x = w;
+	m_scale.y = h;
+
+	m_facing = a;
 }
 vec2 Transform::getUp() const
 {
@@ -23,22 +28,45 @@ vec2 Transform::getUp() const
 }
 vec2 Transform::getDirection() const
 {
-	return fromangle(facing);
+	return fromangle(m_facing);
 }
 
 void Transform::setDirection(const vec2 & dir)
 {
-	facing = ::angle(dir);
+	m_facing = ::angle(dir);
 }
 
-void Transform::debugDraw()
+mat3 Transform::getlocaltransform() const
 {
-	sfw::drawCircle(position.x, position.y, 20, 20,BLACK);
-	sfw::drawCircle(position.x, position.y, 8, 8, RED);
-	vec2 dirEnd = position + getDirection() * scale.x * 4;
-	vec2 upEnd = position - perp(getDirection()) * scale.y * 4;
+	mat3 S = scale(m_scale.x, m_scale.y);
 
-	sfw::drawLine(position.x, position.y, dirEnd.x, dirEnd.y, BLUE);
-	//sfw::drawLine(position.x, position.y, upEnd.x, upEnd.y, GREEN);
+	mat3 T = translate(m_position.x, m_position.y);
+
+	mat3 R = rotation(m_facing);
+
+
+	return T * S * R;
+	
+}
+
+void Transform::debugDraw(const mat3 &T) const
+{
+	mat3 L = T * getlocaltransform();
+
+	vec3 pos = L[2];
+
+	vec3 right = L * vec3{ 1,0,1 };
+	vec3 up = L * vec3{ 0,1,1 };
+
+	sfw::drawCircle(m_position.x, m_position.y, 20, 20,BLACK);
+	sfw::drawLine(m_position.x, m_position.y, right.x, right.y, BLUE);
+	sfw::drawLine(m_position.x, m_position.y, up.x, up.y, GREEN);
+
+
+	vec2 dirEnd = m_position + getDirection() * m_scale.x ;
+	vec2 upEnd = m_position - perp(getDirection()) * m_scale.y ;
+
+	sfw::drawLine(m_position.x, m_position.y, dirEnd.x, dirEnd.y, BLUE);
+	sfw::drawLine(m_position.x, m_position.y, up.x, upEnd.y, GREEN);
 
 }

@@ -85,12 +85,7 @@ vec2 operator*(const mat2 & A, const vec2 & B)
 
 mat2 inverse(const mat2 &D)
 {
-	mat2 temp;
-	temp.m[0] = temp.m[3];
-	temp.m[1] = -temp.m[1];
-	temp.m[2] = -temp.m[2];
-	temp.m[3] = temp.m[0];
-	return (1 / (determinat(D)) * temp );
+	return (1 / (determinat(D)) * mat2 { D.m[3], -D.m[1], -D.m[2], D.m[0] });
 }
 float determinat(const mat2 &D)
 {
