@@ -3,16 +3,18 @@
 
 bool fequals(float lhs, float rhs)
 {
-	if (lhs < 0.0000001f && rhs < 0.0000001f)return true;
+	if (abs(lhs - rhs) < 0.0000001f)
+		return true;
+	else return false;
 }
 float deg2rad(float deg)
 {
-	return deg*3.14 / 180;
+	return deg*3.1415926535  / 180;
 }
 
 float rad2deg(float rad)
 {
-	return rad * 180 / 3.14;
+	return rad * 180 / 3.1415926535;
 }
 
 float LinearHalf(float x)

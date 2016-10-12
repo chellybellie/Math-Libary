@@ -11,62 +11,62 @@ int main()
 {
 	
 
-	////////////////////VECTOR TESTS//////////////////
+	//////////////////////VECTOR TESTS//////////////////
 
-	assert( (vec2{ 0,0 } == vec2{ 0,0 }) );
-	
-	assert((vec2{ 1,1 } + vec2{ -1,0 } == vec2{ 0,1 }));
-	assert((vec2{ 1,1 } - vec2{ 0,0 } == vec2{ 1,1 }));
-	assert((vec2{ 1,1 } * vec2{ 0,0 } == vec2{ 0,0 }));
-	assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1,1 }));
+	//assert( (vec2{ 0,0 } == vec2{ 0,0 }) );
+	//
+	//assert((vec2{ 1,1 } + vec2{ -1,0 } == vec2{ 0,1 }));
+	//assert((vec2{ 1,1 } - vec2{ 0,0 } == vec2{ 1,1 }));
+	//assert((vec2{ 1,1 } * vec2{ 0,0 } == vec2{ 0,0 }));
+	//assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1,1 }));
 
-	assert(((vec2{ 1,1 } * 1.f) == vec2{ 1, 1 }));
-	assert(((1.f * vec2{ 1,1 }) == vec2{ 1, 1 }));
-	assert(((vec2{ 1,1 } /1.f) == vec2{ 1, 1 }));
-	assert(((1.f / vec2{ 1,1 }) == vec2{ 1, 1 }));
+	//assert(((vec2{ 1,1 } * 1.f) == vec2{ 1, 1 }));
+	//assert(((1.f * vec2{ 1,1 }) == vec2{ 1, 1 }));
+	//assert(((vec2{ 1,1 } /1.f) == vec2{ 1, 1 }));
+	//assert(((1.f / vec2{ 1,1 }) == vec2{ 1, 1 }));
 
-	
-	assert((-(vec2{ 1 ,1 }) == vec2{ -1, -1 }));
-	assert((vec2{ 0,0 } == vec2{ 0,0 } - vec2{ 0, 0 }));
-	assert((vec2{ 0,0 } == vec2{ 0,0 } + vec2{ 0, 0 }));
-	assert((vec2{ 0,0 } == vec2{ 0,0 } * vec2{ 0, 0 }));
-	assert((vec2{ 1,1 } == vec2{ 1,1 } / vec2{ 1, 1 }));
+	//
+	//assert((-(vec2{ 1 ,1 }) == vec2{ -1, -1 }));
+	//assert((vec2{ 0,0 } == vec2{ 0,0 } - vec2{ 0, 0 }));
+	//assert((vec2{ 0,0 } == vec2{ 0,0 } + vec2{ 0, 0 }));
+	//assert((vec2{ 0,0 } == vec2{ 0,0 } * vec2{ 0, 0 }));
+	//assert((vec2{ 1,1 } == vec2{ 1,1 } / vec2{ 1, 1 }));
 
-	assert((vec2{ 1,1 } == vec2{ 1,1 }));
-	assert((vec2{ 1,1 } != vec2{ 2,2 }));
-
-
-
-	assert(fequals(magnitude(vec2{ 4,0 }) , 4));
-	assert(fequals(magnitude(vec2{ -4,0 }), 4));
-
-	//assert(fequals(normal(vec2{ 4,0 }), 4));
-
-	assert(fequals(dot(vec2{ 5,4 }, vec2{ 1,0 }), 5));
-	assert(fequals(angleBetween(vec2{ 0,1 }, vec2{ 1,0 }), deg2rad(90)));
-	//assert(perp)
-	assert((fromangle(0) == vec2{ 1,0 }));
-	assert((cross(vec3{ 1, 0, 0 }, vec3{ 0, 1, 0 }) == vec3{0,0,1}));
+	//assert((vec2{ 1,1 } == vec2{ 1,1 }));
+	//assert((vec2{ 1,1 } != vec2{ 2,2 }));
 
 
 
-	
-	assert(fequals(1, .9999999f));
+	//assert(fequals(magnitude(vec2{ 4,0 }) , 4));
+	//assert(fequals(magnitude(vec2{ -4,0 }), 4));
 
-	assert(fequals(lerp(.23, 124, 0), .23));
-	assert(fequals(lerp(0, 1, .5f), .5f));
+	////assert(fequals(normal(vec2{ 4,0 }), 4));
 
-	assert(fequals(quadBezier(15, 40, 21, 0), 15));
-	assert(fequals(quadBezier(15, 40, 21, 1), 21));
+	//assert(fequals(dot(vec2{ 5,4 }, vec2{ 1,0 }), 5));
+	//assert(fequals(angleBetween(vec2{ 0,1 }, vec2{ 1,0 }), deg2rad(90)));
+	////assert(perp)
+	//assert((fromangle(0) == vec2{ 1,0 }));
+	//assert((cross(vec3{ 1, 0, 0 }, vec3{ 0, 1, 0 }) == vec3{0,0,1}));
 
-	assert(fequals(hermitspline(15, 40, 21, 10, 0), 15));
-	assert(fequals(hermitspline(15, 40, 21, 10, 1), 21));
 
-	assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
-	assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
 
-	assert(fequals(catRomSpline(15, 40, 21, 0), 15));
-	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
+	//
+	//assert(fequals(1, .9999999f));
+
+	//assert(fequals(lerp(.23, 124, 0), .23));
+	//assert(fequals(lerp(0, 1, .5f), .5f));
+
+	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
+
+	//assert(fequals(hermitspline(15, 40, 21, 10, 0), 15));
+	//assert(fequals(hermitspline(15, 40, 21, 10, 1), 21));
+
+	//assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
+	//assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
+
+	//assert(fequals(catRomSpline(15, 40, 21, 0), 15));
+	//assert(fequals(catRomSpline(15, 40, 21, 1), 21));
 	//////////////mat2////////
 	mat2 m1 = mat2{ 0,0,0,0 };
 	mat2 m2 = mat2identity();
