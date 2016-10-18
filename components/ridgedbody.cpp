@@ -1,5 +1,6 @@
 #include "Ridgedbody.h"
 #include "sfwdraw.h"
+#include <cstdio>
 Rigidbody::Rigidbody()
 {
 	mass = 1;
@@ -40,14 +41,17 @@ void Rigidbody::integrate(Transform & trans, float deltaTime)
 	torque = 0;
 
 	torque = -angularVelocity  * drag;
+
 }
 
 void Rigidbody::debugDraw(const Transform & trans)
 {
+
+
 	vec2 p = trans.m_position;
-	vec2 v = p + velocity;
+	vec2 v = p - -velocity;
 	vec2 a = acceleration + v;
 
 	sfw::drawLine(p.x, p.y, v.x, v.y, CYAN);
-	sfw::drawLine(p.x, p.y, a.x, a.y, MAGENTA);
+	sfw::drawCircle(a.x, a.y,1, 1, MAGENTA);
 }

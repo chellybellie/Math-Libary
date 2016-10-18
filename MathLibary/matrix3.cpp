@@ -111,8 +111,7 @@ mat3 inverse(const mat3 &D)
 {
 	mat3 retval = D;
 
-	//determinat(mat2{ D[1][1], D[1][2], D[2][1], D[2][2] });	
-	//D[1][1] * D[2][2] - D[1][2] * D[2][1];	
+		
 
 	retval[0] = cross(D[1], D[2]);
 	retval[1] = cross(D[2], D[0]);
@@ -123,17 +122,9 @@ mat3 inverse(const mat3 &D)
 
 float determinat(const mat3 &D)
 {
-	//float A = D.m[4] * D.m[8] - D.m[5] * D.m[7];
-	//float B = D.m[4] * D.m[8] - D.m[5] * D.m[6];
-	//float C = D.m[3] * D.m[7] - D.m[5] * D.m[6];A
 
 	return dot(D[0], cross(D[1],D[2]));
-	//return A*D.m[0] - B*D.m[1] + C*D.m[2];
-
-	//return float((D.m[0] * D.m[4] * D.m[1]) + (D.m[3] * D.m[7] * D.m[2]) +
-	//	         (D.m[6] * D.m[4] * D.m[8]) - (D.m[6] * D.m[4] * D.m[2]) -
-	//	         (D.m[3] * D.m[1] * D.m[5]) - (D.m[0] * D.m[7] * D.m[5]));
-
+	
 }
 mat3 scale(float w, float h)
 {
