@@ -5,62 +5,95 @@
 #include "Ridgedbody.h"
 #include "Spaceship.h"
 #include "Spaceshipcontroller.h"
+#include "planetmotor.h"
+#include "PlanetRenderer.h"
 #include <cstdio>
 
 using namespace sfw;
 void main()
 {
-	float W = 800, H = 600;
+	float W = 1200, H = 1200;
 	sfw::initContext(W, H);
 	
 
 		SpaceshipController Playerctrl;
 		Spaceshiplocomotion Playerloco;
-		Transform playerTransform(5, 5);
+		Transform playerTransform(100, 100);
 		playerTransform.m_scale = { 5, 5 };
 		Rigidbody playerRigidbody;
 
+		//sun
+		Transform sunTransform;
+		sunTransform.m_position = vec2{ W / 2, H / 2 };
+		Rigidbody sunRbody;
+		PlanetaryMotor sunMotor;
+		sunMotor.m_rotationSpeed = 5;
+		PlanetaryRenderer sunRenderer(YELLOW, 100);
 
-	Transform ST1(5, 0);
-	SpaceshipController ST1ctrl('A', 'D', 'T', 'E', ' ');
-	Spaceshiplocomotion ST1loco;
+		//Planet
+		Transform plan1;
+		plan1.m_position = vec2{ 150, 0 };
+		plan1.m_parent = &sunTransform;
+		Rigidbody plan1RB;
+		PlanetaryMotor plan1motor;
+		plan1motor.m_rotationSpeed = 7;
+		PlanetaryRenderer plan1renderer(GREEN, 20);
 
-	Transform ST2(10, 0);
-	SpaceshipController ST2ctrl('A', 'D', 'T', 'E', ' ');
-	Spaceshiplocomotion ST2loco;
-	
+		//moon
+		Transform moon1;
+		moon1.m_position = vec2{ 200,0 };
+		moon1.m_parent = &plan1;
+		Rigidbody moon1RB;
+		PlanetaryMotor moon1motor;
+		moon1motor.m_rotationSpeed = 7;
+		PlanetaryRenderer moon1renderer(WHITE, 4);
+		
 
-	Transform ST3(15, 0);
-	ST1.m_parent = &playerTransform;
-	ST2.m_parent = &ST1;
-	ST3.m_parent = &ST2;
+		Transform cameraTransform;
 
 		while (sfw::stepContext())
 		{
 			float deltaTime = sfw::getDeltaTime();
+
 		
 			Playerctrl.update(Playerloco);
-			Playerloco.update(playerTransform, playerRigidbody, deltaTime);
+			Playerloco.update(playerTransform, playerRigidbody);
+			sunMotor.update(sunRbody);
+			plan1motor.update(plan1RB);
+			moon1motor.update(moon1RB);
+			
 			playerRigidbody.integrate(playerTransform, deltaTime);
-	
-			if (playerTransform.m_position.x < 0)	playerTransform.m_position.x = W;
-			else if (playerTransform.m_position.x > W)	playerTransform.m_position.x = 0.f;
-			if (playerTransform.m_position.y < 0)	playerTransform.m_position.y = H;
-			else if (playerTransform.m_position.y> H)	playerTransform.m_position.y = 0.0F;
+			moon1RB.integrate(moon1, deltaTime);
+			plan1RB.integrate(plan1, deltaTime);
+			sunRbody.integrate(sunTransform, deltaTime);
 
-		playerTransform.debugDraw();
-		//playerRigidbody.debugDraw(playerTransform);
+			cameraTransform.m_position
+								= lerp(cameraTransform.m_position,
+								playerTransform.getGlobalPosition(),
+								sfw::getDeltaTime() * 2);
 
-		
-		ST1loco.update(playerTransform, playerRigidbody, deltaTime);
-		ST1ctrl.STupdate(ST1loco, ST1);
-		ST1.debugDraw();
+			mat3 proj = translate(W/2, H/2) * scale(1.f, .2f);
+			mat3 view = inverse(cameraTransform.getGlobalTransform());
+
+			mat3 camera = proj * view;
 
 
-		ST2loco.update(playerTransform, playerRigidbody, deltaTime);
-		ST2ctrl.STupdate(ST2loco, ST2);
-		ST2.debugDraw();
-		ST3.debugDraw();
+			playerTransform.debugDraw(camera);
+			sunTransform.debugDraw(camera);
+			plan1.debugDraw(camera);
+			moon1.debugDraw(camera);
+			cameraTransform.debugDraw(camera);
+
+			playerRigidbody.debugDraw(camera, playerTransform);
+
+
+			//if (playerTransform.m_position.x < 0)	playerTransform.m_position.x = W;
+			//else if (playerTransform.m_position.x > W)	playerTransform.m_position.x = 0.f;
+			//if (playerTransform.m_position.y < 0)	playerTransform.m_position.y = H;
+			//else if (playerTransform.m_position.y> H)	playerTransform.m_position.y = 0.0F;
+
+
+
 		}
 		sfw::termContext();
 	

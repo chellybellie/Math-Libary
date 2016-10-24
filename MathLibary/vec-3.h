@@ -1,4 +1,6 @@
 #pragma once
+#include "vec-2.h"
+
 union vec3
 {
 	float v[3];
@@ -6,6 +8,7 @@ union vec3
 	{
 		float x, y, z;
 	};
+	vec2 xy;
 	float operator[](unsigned idx)const;
 	float &operator [](unsigned idx);
 };

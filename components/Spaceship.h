@@ -15,12 +15,14 @@ class Spaceshiplocomotion
 public:
 	float speed;
 
+	Spaceshiplocomotion();
+
 	void doThrust(float value);
 	void doTurn(float value);
 	void doStop(float value);
-	Spaceshiplocomotion();
+
 	
-	void update(const Transform &trans, Rigidbody &rigidbody, float deltaTime);
+	void update(const Transform &trans, Rigidbody &rigidbody);
 
 
 };

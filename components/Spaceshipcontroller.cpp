@@ -33,29 +33,3 @@ void SpaceshipController::update(Spaceshiplocomotion & loco)
 	
 
 }
-void SpaceshipController::STupdate(Spaceshiplocomotion & loco, Transform & trans)
-{
-	
-	if (sfw::getKey(CTR_LEFT))
-	{
-		trans.m_facing += .5;
-	
-	}
-	if (sfw::getKey(CTR_RIGHT));
-	{
-		trans.m_facing -= .5;
-		
-	}
-	
-	trans.m_facing /= 2;
-	
-
-	
-
-	
-
-
-
-
-
-}

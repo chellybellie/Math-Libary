@@ -111,7 +111,7 @@ vec2 fromangle(float a)
 {
 	return vec2{ cos(a), sin(a) };
 }
-vec2 lerp( vec2 &start, vec2 &end, float alpha)
+vec2 lerp(const vec2 &start, const vec2 &end, float alpha)
 {
 	vec2 retval;
 	retval.x = lerp(start.x, end.x, alpha);

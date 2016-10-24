@@ -5,7 +5,7 @@
 class Transform
 {
 public:
-	Transform();
+	//Transform();
 
 	vec2 m_position;
 	vec2 m_scale;
@@ -21,6 +21,11 @@ public:
 
 	mat3 getGlobalTransform() const;
 	mat3 getlocaltransform() const;
+	vec2 getGlobalPosition() const;
+	vec2 getGlobalright()    const;
+	vec2 getGloablUp()       const;
+	float getGlobalAngle()   const;
+
 
 	
 	void debugDraw(const mat3 &T = mat3identity()) const;
