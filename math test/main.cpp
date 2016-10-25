@@ -7,6 +7,7 @@
 #include <cmath>
 #include "matrix2.h"
 #include "matrix3.h"
+#include "shapes.h"
 int main()
 {
 	
@@ -88,6 +89,42 @@ int main()
 	
 	//vec3 result = rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4,0) * rotation(deg2rad(45)) * translate(6,4)  * translate(-6,0) * vec3 { 0, 0, 1 };
 	assert((rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) * rotation(deg2rad(45)) * translate(6, 4)  * translate(-6, 0) * vec3 { 0, 0, 1 } == vec3{ 2*sqrtf(2),-6-2*sqrtf(2),1 }));
+
+
+
+
+
+
+
+	Circle c = { 0,0,5 };
+
+	assert((translate(4, 0) * c == Circle{ 4,0,5 }));
+
+	//assert((scale(2, 1) * c == Circle{ 4, 0, 10 }));
+
+	assert((rotation(45) * c == Circle{ 0,0,5 }));
+
+
+
+	AABB testA = {1, 2,  3, 4};
+	assert((testA.min() == vec2{ -2,-2 }));
+	assert((testA.max() == vec2{ 4,6 }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	return 0;

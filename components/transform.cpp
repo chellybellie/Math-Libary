@@ -1,5 +1,6 @@
 #include "transform.h"
 #include "sfwdraw.h"
+#include "drawshape.h"
 
 
 
@@ -15,24 +16,34 @@ Transform::Transform(float x, float y, float w, float h, float a)
 	m_parent = nullptr;
 }
 vec2 Transform::getUp() const
-{
-	return -perp(getDirection());
-}
+	{ return -perp(getDirection()); }
+
 vec2 Transform::getDirection() const
-{
-	return fromangle(m_facing);
-}
+	{ return fromangle(m_facing); }
 
 void Transform::setDirection(const vec2 & dir)
-{
-	m_facing = ::angle(dir);
-}
+	{ m_facing = angle(dir); }
+
+vec2 Transform::getGlobalPosition() const
+	{ return getGlobalTransform()[2].xy; }
+
+// first column of global Transform
+vec2 Transform::getGlobalright() const
+	{ return getGlobalTransform()[0].xy; }
+
+
+vec2 Transform::getGloablUp() const
+	{ return getGlobalTransform()[1].xy; }
+
+float Transform::getGlobalAngle() const
+	{ return angle(getGlobalright()); }
 
 
 mat3 Transform::getGlobalTransform() const
 {
 	if (m_parent == nullptr)
 		return getlocaltransform();
+
 	else
 		return m_parent->getGlobalTransform() * getlocaltransform();
 }
@@ -40,9 +51,9 @@ mat3 Transform::getGlobalTransform() const
 
 mat3 Transform::getlocaltransform() const
 {
-	mat3 S = scale(m_scale.x, m_scale.y);
-
 	mat3 T = translate(m_position.x, m_position.y);
+
+	mat3 S = scale(m_scale.x, m_scale.y);
 
 	mat3 R = rotation(m_facing);
 
@@ -51,42 +62,23 @@ mat3 Transform::getlocaltransform() const
 	
 }
 
-vec2 Transform::getGlobalPosition() const
-{
-	return getGlobalTransform()[2].xy;
-}
-
-vec2 Transform::getGlobalright() const
-{
-	return getGlobalTransform()[0].xy;
-}
-
-vec2 Transform::getGloablUp() const
-{
-	return getGlobalTransform()[1].xy;
-}
-
-float Transform::getGlobalAngle() const
-{
-	return angle(getGlobalright());
-}
 
 void Transform::debugDraw(const mat3 &T) const
 {
 	mat3 L = T * getGlobalTransform();
 
 	vec3 pos = L[2];
-	vec3 sgp = m_parent ? (T*m_parent->getGlobalTransform())[2] : pos;
 
-	vec3 right = L * vec3{ 1,0,1 };
-	vec3 up = L * vec3{ 0,1,1 };
-
-	sfw::drawCircle(pos.x, pos.y, 10, 20,BLUE);
-
-
-	//sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
-
-	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
+	vec3 right = L * vec3{ 10, 0, 1 };
+	vec3 up    = L * vec3{ 0, 10, 1 };
 	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 
+	vec3 sgp = m_parent ? (T * m_parent->getGlobalTransform())[2] : pos;
+	//sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
+
+	sfw::drawCircle(pos.x, pos.y, 10, 20, 0x888888FF);
+
+
+	drawcircle(L * Circle{ 0,0,10}, 0x888888FF);
+	drawAABB(AABB{ 0,0,500,500 }, BLUE);
 }

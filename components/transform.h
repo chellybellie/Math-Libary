@@ -1,6 +1,7 @@
 #pragma once
 #include "vec-2.h"
 #include "matrix3.h"
+#include "shapes.h"
 
 class Transform
 {
@@ -27,7 +28,7 @@ public:
 	float getGlobalAngle()   const;
 
 
-	
+
 	void debugDraw(const mat3 &T = mat3identity()) const;
 
 };

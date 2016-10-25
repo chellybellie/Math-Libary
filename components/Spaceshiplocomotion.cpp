@@ -7,9 +7,11 @@ Spaceshiplocomotion::Spaceshiplocomotion()
 	horzThrust = 0.f;
 	breakPower = 5.f;
 	stopAction = 0.0f;
-	turn = 4.f;
 
+	//angles per second
+	turn = 4.0f;
 
+	// pixels per second
 	speed = 900.0f;
 	maxSpeed = 1000.f;
 
