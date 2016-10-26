@@ -69,16 +69,14 @@ void Transform::debugDraw(const mat3 &T) const
 
 	vec3 pos = L[2];
 
-	vec3 right = L * vec3{ 10, 0, 1 };
-	vec3 up    = L * vec3{ 0, 10, 1 };
+	vec3 right = L * vec3{ 5, 0, 1 };
+	vec3 up    = L * vec3{ 0, 5, 1 };
 	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 
 	vec3 sgp = m_parent ? (T * m_parent->getGlobalTransform())[2] : pos;
 	//sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
 
-	sfw::drawCircle(pos.x, pos.y, 10, 20, 0x888888FF);
+	sfw::drawCircle(pos.x, pos.y, 5, 5, 0x888888FF);
 
 
-	drawcircle(L * Circle{ 0,0,10}, 0x888888FF);
-	drawAABB(AABB{ 0,0,500,500 }, BLUE);
 }

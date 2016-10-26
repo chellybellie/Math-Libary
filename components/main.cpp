@@ -39,21 +39,48 @@ void main()
 
 		//Planet
 		Transform plan1;
-		plan1.m_position = vec2{ 150, 0 };
+		plan1.m_position = vec2{ 150, 10 };
 		plan1.m_parent = &sunTransform;
 		Rigidbody plan1RB;
 		PlanetaryMotor plan1motor;
 		plan1motor.m_rotationSpeed = 2;
 		PlanetaryRenderer plan1renderer(GREEN, 20);
 
+		//planet2
+		Transform plan2;
+		plan2.m_position = vec2{ 250, 0 };
+		plan2.m_parent = &sunTransform;
+		Rigidbody plan2RB;
+		PlanetaryMotor plan2motor;
+		plan2motor.m_rotationSpeed = 2;
+		PlanetaryRenderer plan2renderer(CYAN, 40);
+
+		//planet3
+		Transform plan3;
+		plan3.m_position = vec2{ 350, 0 };
+		plan3.m_parent = &sunTransform;
+		Rigidbody plan3RB;
+		PlanetaryMotor plan3motor;
+		plan3motor.m_rotationSpeed = 2;
+		PlanetaryRenderer plan3renderer(RED, 10);
+
 		//moon
 		Transform moon1;
-		moon1.m_position = vec2{ 50,0 };
+		moon1.m_position = vec2{ 40,0 };
 		moon1.m_parent = &plan1;
 		Rigidbody moon1RB;
 		PlanetaryMotor moon1motor;
 		moon1motor.m_rotationSpeed = 2;
 		PlanetaryRenderer moon1renderer(WHITE, 4);
+
+		//moon 4 planet3
+		Transform moon2;
+		moon2.m_position = vec2{ 40,0 };
+		moon2.m_parent = &plan3;
+		Rigidbody moon2RB;
+		PlanetaryMotor moon2motor;
+		moon2motor.m_rotationSpeed = 2;
+		PlanetaryRenderer moon2renderer(BLACK, 4);
 		
 
 		Transform cameraTransform;
@@ -71,16 +98,22 @@ void main()
 			// update logic
 			sunMotor.update(sunRbody);
 			plan1motor.update(plan1RB);
+			plan2motor.update(plan2RB);
+			plan3motor.update(plan3RB);
 			moon1motor.update(moon1RB);
+			moon2motor.update(moon1RB);
 			
 			
 			moon1RB.integrate(moon1, deltaTime);
+			moon2RB.integrate(moon1, deltaTime);
 			plan1RB.integrate(plan1, deltaTime);
+			plan2RB.integrate(plan2, deltaTime);
+			plan3RB.integrate(plan3, deltaTime);
 			sunRbody.integrate(sunTransform, deltaTime);
 
 			cameraTransform.m_position
 									= lerp(cameraTransform.m_position,
-									(playerTransform.getGlobalPosition() + sunTransform.getGlobalPosition())/2,
+									(playerTransform.getGlobalPosition()),/* + sunTransform.getGlobalPosition())/2,*/
 									sfw::getDeltaTime() * 10);
 
 			
@@ -94,14 +127,20 @@ void main()
 			playerTransform.debugDraw(camera);
 			sunTransform.debugDraw(camera);
 			plan1.debugDraw(camera);
+			plan2.debugDraw(camera);
+			plan3.debugDraw(camera);
 			moon1.debugDraw(camera);
+			moon2.debugDraw(camera);
 			cameraTransform.debugDraw(camera);
 
 			playerRigidbody.debugDraw(camera, playerTransform);
 
 			sunRenderer.draw(camera, sunTransform);
 			plan1renderer.draw(camera, plan1);
+			plan2renderer.draw(camera, plan2);
+			plan3renderer.draw(camera, plan3);
 			moon1renderer.draw(camera, moon1);
+			moon2renderer.draw(camera, moon1);
 
 			playerRender.draw(camera, playerTransform);
 		}

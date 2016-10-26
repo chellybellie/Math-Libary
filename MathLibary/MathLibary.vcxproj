@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="collsion.h" />
     <ClInclude Include="flops.h" />
     <ClInclude Include="matrix2.h" />
     <ClInclude Include="matrix3.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="vec-3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="collsion.cpp" />
     <ClCompile Include="flops.cpp" />
     <ClCompile Include="matrix2.cpp" />
     <ClCompile Include="matrix3.cpp" />
