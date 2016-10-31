@@ -41,4 +41,5 @@ void SpaceshipRenderer::draw(const mat3 & T, const Transform & ship)
 
 	drawcircle(glob * Circle{ 0,0,5 }, BLACK);
 	drawAABB(glob *  AABB{ 0,0, 5, 5 }, BLACK);
+	drawPlane(glob * plane{ 0,0,0,1 }, CYAN);
 }

@@ -112,13 +112,17 @@ int main()
 	//assert((testA.max() == vec2{ 4,6 }));
 
 	//////////////collision tests/////////////////
-	assert(colllisionDetection1D(0, 2, 1, 3).result == true);
+	/*assert(colllisionDetection1D(0, 2, 1, 3).result == true);
 	assert(colllisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
+*/
 
 
 
+	AABB As = { 0,0,1,1 };
+	AABB Bs = { 0,10,1,1 };
 
-
+	assert(fequals((boxCollisionSwept(As, vec2{0, 1 }, Bs, vec2{ 0,-1})).entryTime, 4));
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 }).exitTime, -4));
 
 
 

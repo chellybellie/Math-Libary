@@ -21,6 +21,11 @@ struct AABB
 
 
 AABB operator*(const mat3 &T, const AABB &B);
-//Plane operator*(const mat3 &T, const Plane &C);
+struct plane
+{
+	vec2 pos, dir;
+};
+plane  operator*(const mat3 & T, const plane  &C);
+bool operator==(const plane &A, const plane &B);
 //Ray operator*(const mat3 &T, const Ray &C);
 //Hull operator*(const mat3 &T, const Hull &C);

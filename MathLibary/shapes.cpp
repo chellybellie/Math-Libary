@@ -78,4 +78,16 @@ vec2 AABB::max() const
 {
 	return pos + he;
 }
- 
+
+plane operator*(const mat3 & T, const plane & P)
+{
+	plane retval;
+	retval.pos = (T * vec3{ P.pos.x, P.pos.y, 1 }).xy;
+	retval.dir = normal(T * vec3{ P.dir.x,P.dir.y, 0 }).xy;
+	return retval;
+}
+
+bool operator==(const plane & A, const plane & B)
+{
+	return A.pos == B.pos && A.dir == B.dir;
+}
