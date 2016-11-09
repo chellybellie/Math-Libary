@@ -49,3 +49,8 @@ struct CollisionDataSwept
 
 CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
 								const AABB &B, const vec2 &dB);
+CollisionData planeBoxCollision(const plane &P, const AABB &B);
+CollisionDataSwept SweptPlaneBoxCollision(const plane & P, const AABB & B,
+														   const vec2 &vB);
+
+CollisionData HullCollision(const Hull &A, const Hull &B);
