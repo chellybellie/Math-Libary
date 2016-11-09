@@ -24,7 +24,7 @@ int main()
 	Hull tHull = translate(1, 0) * myHull;
 
 	assert(fequals(HullCollision(myHull, otherHull).penetrationDepth, 0));
-	//assert(fequals(HullCollision(myHull, tHull).penetrationDepth, -1));
+	assert(fequals(HullCollision(otherHull, tHull).penetrationDepth, -1));
 
 	return 0;
 
