@@ -89,16 +89,16 @@ bool operator==(const plane & A, const plane & B)
 Hull operator*(const mat3 &T, const Hull &H)
 {
 	Hull retval;
-
+	retval.size = H.size;
 	for (int i = 0; i < H.size; ++i)
 	{
 		retval.vertices[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y,1 }).xy;
-		retval.normals[i] = (T * vec3{ H.normals[i].x, H.normals[i].y,0 }).xy;
+		retval.normals[i] = normal(T * vec3{ H.normals[i].x, H.normals[i].y,0 }).xy;
 	}
 
-	retval.size = H.size;
 	return retval;
 }
+
 	bool operator==(const Hull & A, const Hull & B)
 {
 	return B.vertices == A.vertices && A.normals == B.normals;

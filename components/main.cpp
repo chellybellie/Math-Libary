@@ -9,6 +9,7 @@
 #include "PlanetRenderer.h"
 #include "SpaceshipRenderer.h"
 #include <cstdio>
+#include "Collider.h"
 
 void main()
 {
@@ -16,74 +17,83 @@ void main()
 	sfw::initContext(W, H);
 	float steps = 100;
 	vec2 start = { 200, 300 },
-		 end   = { 900, 800 },
-		 mid   = { 0, 1100  };
+		end = { 900, 800 },
+		mid = { 0, 1100 };
 
-		Transform playerTransform(200, 200);
-		
-		playerTransform.m_scale = { 20, 20 };
-		Rigidbody playerRigidbody;
-		SpaceshipController Playerctrl;
-		Spaceshiplocomotion Playerloco;
-		SpaceshipRenderer playerRender;
-		
+	Transform playerTransform(200, 200);
+
+	playerTransform.m_scale = { 20, 20 };
+	Rigidbody playerRigidbody;
+	SpaceshipController Playerctrl;
+	Spaceshiplocomotion Playerloco;
+	SpaceshipRenderer playerRender;
 
 
-		//sun
-		Transform sunTransform;
-		sunTransform.m_position = vec2{ W / 2, H / 2 };
-		Rigidbody sunRbody;
-		PlanetaryMotor sunMotor;
-		sunMotor.m_rotationSpeed = 3;
-		PlanetaryRenderer sunRenderer(YELLOW, 100);
 
-		//Planet
-		Transform plan1;
-		plan1.m_position = vec2{ 150, 10 };
-		plan1.m_parent = &sunTransform;
-		Rigidbody plan1RB;
-		PlanetaryMotor plan1motor;
-		plan1motor.m_rotationSpeed = 2;
-		PlanetaryRenderer plan1renderer(GREEN, 20);
+	//sun
+	Transform sunTransform;
+	sunTransform.m_position = vec2{ W / 2, H / 2 };
+	Rigidbody sunRbody;
+	PlanetaryMotor sunMotor;
+	sunMotor.m_rotationSpeed = 1;
+	PlanetaryRenderer sunRenderer(YELLOW, 100);
 
-		//planet2
-		Transform plan2;
-		plan2.m_position = vec2{ 250, 0 };
-		plan2.m_parent = &sunTransform;
-		Rigidbody plan2RB;
-		PlanetaryMotor plan2motor;
-		plan2motor.m_rotationSpeed = 2;
-		PlanetaryRenderer plan2renderer(CYAN, 40);
+	//Planet
+	Transform plan1;
+	plan1.m_position = vec2{ 150, 10 };
+	plan1.m_parent = &sunTransform;
+	Rigidbody plan1RB;
+	PlanetaryMotor plan1motor;
+	plan1motor.m_rotationSpeed = 1;
+	PlanetaryRenderer plan1renderer(GREEN, 20);
 
-		//planet3
-		Transform plan3;
-		plan3.m_position = vec2{ 350, 0 };
-		plan3.m_parent = &sunTransform;
-		Rigidbody plan3RB;
-		PlanetaryMotor plan3motor;
-		plan3motor.m_rotationSpeed = 2;
-		PlanetaryRenderer plan3renderer(RED, 10);
+	//planet2
+	Transform plan2;
+	plan2.m_position = vec2{ 250, 0 };
+	plan2.m_parent = &sunTransform;
+	Rigidbody plan2RB;
+	PlanetaryMotor plan2motor;
+	plan2motor.m_rotationSpeed = 2;
+	PlanetaryRenderer plan2renderer(CYAN, 40);
 
-		//moon
-		Transform moon1;
-		moon1.m_position = vec2{ 40,0 };
-		moon1.m_parent = &plan1;
-		Rigidbody moon1RB;
-		PlanetaryMotor moon1motor;
-		moon1motor.m_rotationSpeed = 2;
-		PlanetaryRenderer moon1renderer(WHITE, 4);
+	//planet3
+	Transform plan3;
+	plan3.m_position = vec2{ 350, 0 };
+	plan3.m_parent = &sunTransform;
+	Rigidbody plan3RB;
+	PlanetaryMotor plan3motor;
+	plan3motor.m_rotationSpeed = 2;
+	PlanetaryRenderer plan3renderer(RED, 10);
 
-		//moon 4 planet3
-		Transform moon2;
-		moon2.m_position = vec2{ 40,0 };
-		moon2.m_parent = &plan3;
-		Rigidbody moon2RB;
-		PlanetaryMotor moon2motor;
-		moon2motor.m_rotationSpeed = 2;
-		PlanetaryRenderer moon2renderer(BLACK, 4);
-		
+	//moon
+	Transform moon1;
+	moon1.m_position = vec2{ 40,0 };
+	moon1.m_parent = &plan1;
+	Rigidbody moon1RB;
+	PlanetaryMotor moon1motor;
+	moon1motor.m_rotationSpeed = 2;
+	PlanetaryRenderer moon1renderer(WHITE, 4);
+	
+	//moon 4 planet3
+	Transform moon2;
+	moon2.m_position = vec2{ 40,0 };
+	moon2.m_parent = &plan3;
+	Rigidbody moon2RB;
+	PlanetaryMotor moon2motor;
+	moon2motor.m_rotationSpeed = 2;
+	PlanetaryRenderer moon2renderer(BLACK, 4);
 
-		Transform cameraTransform;
+
+	Transform cameraTransform;                       
+
+	///Collider//////
+	vec2 hullVrts[] = { { 0,8.5 }, {-4.5,-1 },{-2,-6},{-2,-1},{0,-.5},{2,-1}, {2,-6},{ 4.5,-1} };
+	Collider PlayerColider(hullVrts, 8);
+
+	Transform occluderTransform(0, 0);
+	occluderTransform.m_scale = vec2{ 8,8 };
+	Collider occluderCollider(hullVrts, 8);
+	Rigidbody occluderRidgidbody;
 
 		while (sfw::stepContext())
 		{
@@ -94,6 +104,12 @@ void main()
 			Playerloco.update(playerTransform, playerRigidbody);
 			playerRigidbody.integrate(playerTransform, deltaTime);
 
+		
+			StaticResolution(playerTransform, playerRigidbody, PlayerColider,
+			                  occluderTransform, occluderCollider);
+		
+			DynamicResolution(playerTransform, playerRigidbody, PlayerColider,
+				occluderTransform, occluderRidgidbody, occluderCollider);
 
 			// update logic
 			sunMotor.update(sunRbody);
@@ -125,6 +141,10 @@ void main()
 
 			
 			playerTransform.debugDraw(camera);
+
+			///shows Collision shape w/ box/////
+			//PlayerColider.DebugDraw(camera,playerTransform);
+			occluderCollider.DebugDraw(camera, occluderTransform);
 			sunTransform.debugDraw(camera);
 			plan1.debugDraw(camera);
 			plan2.debugDraw(camera);
@@ -141,6 +161,7 @@ void main()
 			plan3renderer.draw(camera, plan3);
 			moon1renderer.draw(camera, moon1);
 			moon2renderer.draw(camera, moon1);
+
 
 			playerRender.draw(camera, playerTransform);
 		}

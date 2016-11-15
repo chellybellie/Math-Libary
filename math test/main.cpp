@@ -13,18 +13,15 @@
 
 int main()
 {
+	vec2 I = vec2{ 1,1 };
+	vec2 Ref = vec2{ 1,-1 };
+	vec2 xaxis = vec2{ 1,0 };
 
-	vec2 verts[] = { {0,1},{1,1},{1,0},{0,0} };
-	vec2 verts2[] = { { -1,-1 },{ -1,1 },{ 0,0 } };
-
-	Hull myHull(verts, 4);
-	Hull otherHull(verts2, 3);
+	assert((projection(I, xaxis) == xaxis));
 
 
-	Hull tHull = translate(1, 0) * myHull;
+	assert((Reflection(-I, xaxis) == Ref));
 
-	assert(fequals(HullCollision(myHull, otherHull).penetrationDepth, 0));
-	assert(fequals(HullCollision(otherHull, tHull).penetrationDepth, -1));
 
 	return 0;
 

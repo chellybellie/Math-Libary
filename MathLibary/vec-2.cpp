@@ -76,7 +76,7 @@ bool operator==(const vec2 & lhs, const vec2 & rhs)
 bool operator!=(const vec2 &lhs, const vec2 &rhs)
 {
 	return lhs.x != rhs.x && lhs.y != rhs.y;
-}
+} 
 
 float magnitude(const vec2 & v)
 {
@@ -156,3 +156,30 @@ float &vec2::operator[](unsigned idx)
 {
 	return v[idx];
 }
+vec2 min(const vec2 & A, const vec2 & B)
+{
+	return vec2
+	{
+		A.x < B.x ? A.x : B.x,
+		A.y < B.y ? A.y : B.y
+	};
+}
+vec2 max(const vec2 & A, const vec2 & B)
+{
+	return vec2
+	{
+		A.x > B.x ? A.x : B.x,
+		A.y > B.y ? A.y : B.y
+	};
+}
+
+vec2 projection(const vec2 & I, const vec2 & N)
+{
+	return dot(I, normal(N)) * normal(N);
+}
+
+vec2 Reflection(const vec2 & I, const vec2 & N)
+{
+	return I - 2 * projection(I, N);
+}
+

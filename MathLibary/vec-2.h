@@ -49,3 +49,7 @@ vec2 quadBezier(vec2 &start, vec2 &mid, vec2 &end, float alpha);
 vec2 hermitspline(vec2 &start, vec2 &s_tan, vec2 &end, vec2 &e_tan, float alpha);
 vec2 cardinalSpline(vec2 &start, vec2 &mid, vec2 &end, float tightness, float alpha);
 vec2 catRomSpline(vec2 &start, vec2 &mid, vec2 &end, float alpha);
+vec2 min(const vec2 & A, const vec2 & B);
+vec2 max(const vec2 & A, const vec2 & B);
+vec2 projection(const vec2 &I, const vec2 &N);
+vec2 Reflection(const vec2 &I, const vec2 &N);

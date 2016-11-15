@@ -82,6 +82,8 @@ vec2 CollisionData::mtv() const
 	return  penetrationDepth * collisionNormal;
 }
 
+
+
 bool CollisionDataSwept::result() const
 {
 	return false;

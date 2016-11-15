@@ -5,7 +5,7 @@ Spaceshiplocomotion::Spaceshiplocomotion()
 {
 	vertThrust = 0.0f;
 	horzThrust = 0.f;
-	breakPower = 5.f;
+	breakPower = 10.f;
 	stopAction = 0.0f;
 
 	//angles per second

@@ -7,3 +7,5 @@ void drawcircle(const Circle &c, unsigned color);
 void drawAABB(const AABB &B, unsigned color);
 
 void drawPlane(const plane &A, unsigned color);
+
+void drawHull(const Hull &H, unsigned color);
