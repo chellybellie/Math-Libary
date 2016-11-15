@@ -49,7 +49,7 @@ void main()
 
 	//planet2
 	Transform plan2;
-	plan2.m_position = vec2{ 250, 0 };
+	plan2.m_position = vec2{ 250, 0 }; 
 	plan2.m_parent = &sunTransform;
 	Rigidbody plan2RB;
 	PlanetaryMotor plan2motor;
