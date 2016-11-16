@@ -1,4 +1,5 @@
 #include "Playership.h"
+#include "gamestate.h"
 #include <iostream>
 
 
@@ -55,6 +56,18 @@ void Playership::update(float deltaTime, GameState & gs)
 	ctrl.update(loco);
 	loco.update(transform, rigidbody);
 	rigidbody.integrate(transform, deltaTime);
+
+	if (sfw::getKey('T') && !gs.bullet.isAlive)
+	{
+		gs.bullet.timer = 2.f;
+		gs.bullet.transform.m_position = transform.m_position;
+		gs.bullet.transform.m_facing = transform.m_facing;
+
+		gs.bullet.rigidbody.velocity = vec2{ 0,0 };
+
+		gs.bullet.rigidbody.addImpulde(transform.getUp() * 3000.f);
+
+	}
 
 }
 

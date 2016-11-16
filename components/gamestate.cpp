@@ -15,6 +15,8 @@ void GameState::play()
 	asteroid[1].transform.m_position = vec2{ 400,400 };
 	asteroid[1].rigidbody.addImpulde(vec2{ -100,-100 });
 	asteroid[1].rigidbody.addTorque(-24);
+
+	bullet.timer = 0;
 }
 
 void GameState::update(float deltatime)
@@ -25,12 +27,15 @@ void GameState::update(float deltatime)
 	for (int i = 0; i < 1; ++i)
 		asteroid[i].update(deltatime, *this);
 
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
 		PlayerAstroidCollision(player, asteroid[i]);
 
 	for (int i = 0; i < 2 - 1; ++i)
 		for (int j = i + 1; j < 2; ++j)
 			AsteroidCollision(asteroid[i], asteroid[j]);
+	
+	for (int i = 0; i < 2; ++i)
+		BulletAsteroidCollision(bullet, asteroid[i]);
 }
 
 void GameState::draw()
@@ -38,6 +43,8 @@ void GameState::draw()
 	mat3 cam = Camera.getcameraMatrix();
 	player.draw(cam);
 	player.drawHealth();
+	bullet.draw(cam);
+
 	for (int i = 0; i < 2; ++i)
 		asteroid[i].draw(cam);
 }

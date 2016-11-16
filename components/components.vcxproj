@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Asteroid.cpp" />
+    <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="drawshape.cpp" />
@@ -136,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
+    <ClInclude Include="Bullets.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="drawshape.h" />
     <ClInclude Include="gamestate.h" />
