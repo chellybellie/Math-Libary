@@ -4,29 +4,29 @@ Bullet::Bullet()
 {
 	timer = 0;
 
-	vec2 hullverts[] = { {-.1f,0},{0,.2f},{.1f,0} };
-	collider = Collider(hullverts, 3);
-	transform.m_scale = vec2{ 40,40 };
+	vec2 hullverts[] = { {-.5f,0},{0,1.f},{.5f,0},{0,-1.f} };
+	collider = Collider(hullverts, 4);
+	transform.m_scale = vec2{ 30,30 };
 	rigidbody.mass = 15;
 }
 
 void Bullet::update(float deltatime, GameState & gs)
 {
-	timer -= deltatime;
-	isAlive = timer > 0;
-
-	if (!isAlive)return;
+	////UPDATE ME/////
+	
+	if (!isAlive) return;
 
 	rigidbody.integrate(transform, deltatime);
 
+	timer -= deltatime;
+	isAlive = timer > 0;
 }
 
 void Bullet::draw(const mat3 & camera)
 {
 	if (!isAlive) return;
-
+	
 	transform.debugDraw(camera);
 	collider.DebugDraw(camera, transform);
-	rigidbody.debugDraw(camera, transform);
-
+	//rigidbody.debugDraw(camera, transform); /// HIDES RED LINE ON BULLETS///
 }

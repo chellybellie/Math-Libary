@@ -13,8 +13,7 @@ public:
 
 	Playership  player;
 	camera		Camera;
-	Asteroid	asteroid[2];
-	Bullet		bullet;
+	Asteroid	asteroid[5];
 	void play();
 	void update(float deltatime);
 	void draw();

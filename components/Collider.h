@@ -11,7 +11,7 @@ public:
 	AABB box;
 	Hull hull[10];
 	int hsize;
-
+	
 	Collider();
 
 	// Construct a collider with one hull.

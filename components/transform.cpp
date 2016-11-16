@@ -71,7 +71,7 @@ void Transform::debugDraw(const mat3 &T) const
 
 	vec3 right = L * vec3{ 5, 0, 1 };
 	vec3 up    = L * vec3{ 0, 5, 1 };
-	//sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
+
 
 	vec3 sgp = m_parent ? (T * m_parent->getGlobalTransform())[2] : pos;
 

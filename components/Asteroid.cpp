@@ -2,16 +2,16 @@
 
 Asteroid::Asteroid()
 {
-	vec2 hullVrts1[] = { { -1,0 },{ 0,1 },{ 1,0 } }; 
+	vec2 hullVrts1[] = { { -1,0 },{ 0,2 },{ 1,0 },{0,-1 } };
 	
 
 	Hull hull[1];
-	hull[0] = Hull(hullVrts1, 3);
+	hull[0] = Hull(hullVrts1, 4);
 
 	collider = Collider(hull, 1);
 
 	
-	transform.m_scale		= { 30, 30 };
+	transform.m_scale		= { 1.f, 1.f };
 	rigidbody.drag			= 0.0f;
 	rigidbody.angularDrag	= 0.0f;
 	rigidbody.mass			= 10;

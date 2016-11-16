@@ -4,7 +4,7 @@
 #include "vec-2.h"
 
 
-
+#include <iostream>
 
 void PlayerAstroidCollision(Playership & player, Asteroid & as)
 {
@@ -14,7 +14,7 @@ void PlayerAstroidCollision(Playership & player, Asteroid & as)
 
 	////penatly for hitting objects////
 	if (result.penetrationDepth >= 0)
-	{
+	{////TO:DO/////
  		player.health - .5f;
 	}
 
@@ -35,6 +35,8 @@ void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 		CollisionData result =
 		DynamicResolution(b.transform, b.rigidbody, b.collider,
 			a.transform, a.rigidbody, a.collider);
+
+
 
 	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
 		if (result.penetrationDepth >= 0)

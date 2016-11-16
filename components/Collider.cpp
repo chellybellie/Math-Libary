@@ -90,7 +90,7 @@ void Collider::DebugDraw(const mat3 & T, const Transform & trans)
 {
 	mat3 glob = T * trans.getGlobalTransform();
 
-	drawAABB(glob  * box, 0x888888ff); /// DRAWS COLLIDER RECONIGTION BOX
+//	drawAABB(glob  * box, 0x888888ff); /// DRAWS COLLIDER RECONIGTION BOX
 	for(int i = 0; i < hsize; ++i)
 		drawHull(glob * hull[i], 0x888888ff);
 }

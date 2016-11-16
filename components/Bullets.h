@@ -17,5 +17,4 @@ public:
 
 	void update(float deltatime, class GameState &gs);
 	void draw(const mat3 &camera);
-
 };

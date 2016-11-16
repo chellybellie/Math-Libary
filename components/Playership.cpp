@@ -43,7 +43,7 @@ Playership::Playership()
 	health = 100;
 	collider = Collider(hull, 10);
 
-	transform.m_scale = { 30, 30 };
+	transform.m_scale = { 20, 20 };
 
 }
 
@@ -57,28 +57,55 @@ void Playership::update(float deltaTime, GameState & gs)
 	loco.update(transform, rigidbody);
 	rigidbody.integrate(transform, deltaTime);
 
-	if (sfw::getKey('T') && !gs.bullet.isAlive)
+	// shooting delay
+	bullerTimer -= deltaTime;
+
+	if (sfw::getKey('1') && bullerTimer <= 0.0f )
 	{
-		gs.bullet.timer = 2.f;
-		gs.bullet.transform.m_position = transform.m_position;
-		gs.bullet.transform.m_facing = transform.m_facing;
+		int bulletID = -1;
 
-		gs.bullet.rigidbody.velocity = vec2{ 0,0 };
+		// find a bullet to use
+		for (int i = 0; i < BULLET_COUNT; ++i)
+		{
+			if (!bullets[i].isAlive)
+			{
+				bulletID = i;
+				break;
+			}
+		}
 
-		gs.bullet.rigidbody.addImpulde(transform.getUp() * 3000.f);
+		if (bulletID != -1)
+		{
+			Bullet& myBullet = bullets[bulletID];
 
+			// reset the bullet
+			myBullet.isAlive = true;
+			myBullet.timer = 5.f;
+			myBullet.transform.m_position = transform.m_position;
+			myBullet.transform.m_facing = transform.m_facing;
+
+			myBullet.rigidbody.velocity = vec2{ 0,0 };
+
+			myBullet.rigidbody.addImpulde(transform.getUp() * 10000.f);
+
+			bullerTimer = .3f;
+		}
 	}
+
+	for (int i = 0; i < BULLET_COUNT; ++i)
+		bullets[i].update(deltaTime, gs);
 
 }
 
 void Playership::draw(const mat3 &camera)
 {
-	
 	transform.debugDraw(camera);
 	drawship.draw(camera, transform);
-	collider.DebugDraw(camera, transform); // SHOWS THE HULL[] 
+	//collider.DebugDraw(camera, transform); // SHOWS THE HULL[] ( COLLIER OUTLINE) 
 	rigidbody.debugDraw(camera, transform);
-	
+
+	for (int i = 0; i < BULLET_COUNT; ++i)
+		bullets[i].draw(camera);
 }
 
 

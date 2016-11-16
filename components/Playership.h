@@ -6,6 +6,7 @@
 #include "Spaceshipcontroller.h"
 #include "Spaceship.h"
 #include "SpaceshipRenderer.h"
+#include "Bullets.h"
 
 class Playership
 {
@@ -20,6 +21,11 @@ public:
 	SpaceshipController  ctrl;
 	Spaceshiplocomotion  loco;
 	SpaceshipRenderer    drawship;
+
+	const static int BULLET_COUNT = 25;
+	Bullet bullets[BULLET_COUNT];
+
+	float bullerTimer = 0;
 
 	int health = 100;
 	Playership();
