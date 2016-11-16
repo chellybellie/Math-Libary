@@ -9,7 +9,7 @@ CollisionDAta1D colllisionDetection1D(float Amin, float Amax, float Bmin, float 
 	 retval.penetrationDepth = fminf(Dr , Dl);
 	
 	 
-	 // MAke sure this is 1 or -1
+
 	 retval.collisionNormal = copysignf(1, Dl - Dr);
 	 
 
@@ -260,6 +260,23 @@ CollisionData HullCollision(const Hull &A, const Hull &B)
 		 }
 	 }
 return retval;
+}
+
+CollisionData HullCollisionGroup(const Hull A[], unsigned asize, 
+								 const Hull B[], unsigned bsize)
+{
+	CollisionData retval;
+
+	retval.penetrationDepth = INFINITY;
+	for(int i = 0; i < asize; ++i)
+		for (int j = 0; j < bsize; ++j)
+		{
+			CollisionData temp = HullCollision(A[i], B[j]);
+			if (temp.penetrationDepth < retval.penetrationDepth);
+			retval = temp;
+
+		}
+	return retval;
 }
 
 

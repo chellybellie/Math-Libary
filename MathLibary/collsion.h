@@ -4,10 +4,10 @@
 
 struct  CollisionDAta1D
 {
-	bool result;			// penetrationDepth > 0
-	float penetrationDepth; // how much overlap
-	float collisionNormal; // -1 or 1
-	float MTV;				// penetrationDepth * collisionNormal
+	bool result;			
+	float penetrationDepth; 
+	float collisionNormal; 
+	float MTV;				
 
 };
 
@@ -49,9 +49,12 @@ struct CollisionDataSwept
 
 CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
 								const AABB &B, const vec2 &dB);
+
 CollisionData planeBoxCollision(const plane &P, const AABB &B);
 CollisionDataSwept SweptPlaneBoxCollision(const plane & P, const AABB & B,
 														   const vec2 &vB);
 
 CollisionData HullCollision(const Hull &A, const Hull &B);
 
+CollisionData HullCollisionGroup(const Hull A[], unsigned asize,
+								 const Hull B[], unsigned bsze);

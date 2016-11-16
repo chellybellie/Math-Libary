@@ -1,5 +1,5 @@
 #pragma once
-#include "Spaceship.h"
+
 #include "sfwdraw.h"
 
 class SpaceshipController
@@ -10,6 +10,6 @@ public:
 	SpaceshipController(unsigned CTR_LEFT = 'A', unsigned CTR_RIGHT = 'D', unsigned CTR_UP = 'W',
 		unsigned CTR_DOWN = 'S', unsigned CTR_break = ' ');
 
-	void update(Spaceshiplocomotion &loco);
+	void update(class Spaceshiplocomotion &loco);
 	
 };

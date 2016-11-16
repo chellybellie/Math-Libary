@@ -118,11 +118,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Asteroid.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="drawshape.cpp" />
+    <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="planetmotor.cpp" />
     <ClCompile Include="PlanetRenderer.cpp" />
+    <ClCompile Include="Playership.cpp" />
     <ClCompile Include="ridgedbody.cpp" />
     <ClCompile Include="Spaceshipcontroller.cpp" />
     <ClCompile Include="Spaceshiplocomotion.cpp" />
@@ -130,11 +135,15 @@
     <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Asteroid.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="drawshape.h" />
+    <ClInclude Include="gamestate.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="planetmotor.h" />
     <ClInclude Include="PlanetRenderer.h" />
+    <ClInclude Include="Playership.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Ridgedbody.h" />
     <ClInclude Include="Spaceshipcontroller.h" />

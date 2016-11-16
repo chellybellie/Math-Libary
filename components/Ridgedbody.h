@@ -2,6 +2,8 @@
 #include "vec-2.h"
 #include "Transform.h"
 
+class Transform;
+
 class Rigidbody
 {
 public:

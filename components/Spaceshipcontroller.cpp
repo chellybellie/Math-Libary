@@ -1,6 +1,6 @@
 #include "Spaceshipcontroller.h"
 #include "sfwdraw.h"
-
+#include "Spaceship.h"
 
 SpaceshipController::SpaceshipController(unsigned a_CTR_LEFT, unsigned a_CTR_RIGHT, unsigned a_CTR_UP, unsigned a_CTR_DOWN, unsigned a_CTR_break)
 {

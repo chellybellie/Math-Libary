@@ -1,12 +1,16 @@
 #include "Collider.h"
 #include "drawshape.h"
 #include <cmath>
+#include <cassert>
 
 
 Collider::Collider(const vec2 * verts, int size)
-			: hull(verts,size)
 {
+	// create the hull!
+	hull[0] = Hull(verts, size);
+	hsize = 1;
 
+	// create the box!
 	float minx = INFINITY;
 	float maxx = -INFINITY;
 	float miny = INFINITY;
@@ -31,20 +35,68 @@ Collider::Collider(const vec2 * verts, int size)
 			maxy = verts[i].y;
 		}
 	}
+
 	vec2 min = { minx,miny };
 	vec2 max = { maxx,maxy };
 	box.pos = (min + max) / 2;
 	box.he =  (min - max) / 2;
+}
 
+Collider::Collider(const Hull hulls[], int a_hsize)
+{
+	// create the box!
 
+	float minx = INFINITY;
+	float maxx = -INFINITY;
+	float miny = INFINITY;
+	float maxy = -INFINITY;
+
+	hsize = a_hsize;
+
+	for (int j = 0; j < a_hsize; ++j)
+	{
+		hull[j] = hulls[j];
+		const Hull& currentHull = hulls[j];
+		const vec2* currentVerts = currentHull.vertices;
+
+		for (int i = 0; i < currentHull.size; ++i)
+		{
+			if (currentVerts[i].x < minx)
+			{
+				minx = currentVerts[i].x;
+			}
+			if (currentVerts[i].x > maxx)
+			{
+				maxx = currentVerts[i].x;
+			}
+			if (currentVerts[i].y < miny)
+			{
+				miny = currentVerts[i].y;
+			}
+			if (currentVerts[i].y > maxy)
+			{
+				maxy = currentVerts[i].y;
+			}
+		}
+	}
+
+	vec2 min = { minx,miny };
+	vec2 max = { maxx,maxy };
+	box.pos = (min + max) / 2;
+	box.he = (min - max) / 2;
 }
 
 void Collider::DebugDraw(const mat3 & T, const Transform & trans)
 {
 	mat3 glob = T * trans.getGlobalTransform();
 
-	//drawAABB(glob  * box, 0x888888ff);
-	drawHull(glob * hull, 0x888888ff);
+	drawAABB(glob  * box, 0x888888ff); /// DRAWS COLLIDER RECONIGTION BOX
+	for(int i = 0; i < hsize; ++i)
+		drawHull(glob * hull[i], 0x888888ff);
+}
+
+Collider::Collider()
+{
 }
 
 CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
@@ -56,23 +108,24 @@ CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
 						  BT.getGlobalTransform()* BC.box);
 
 
+	// if the boxes are in collision, the hulls might be... :D
 	if (retval.penetrationDepth >= 0)
 	{
-		retval = HullCollision(AT.getGlobalTransform() * AC.hull,
-			                   BT.getGlobalTransform() * BC.hull);
-		/*
-		for(int i = 0; i < AC.hsize; ++i)
+		// todo: this is not great. could be done better!
+		retval = CollisionData();
+		retval.penetrationDepth = -INFINITY;
+
+ 		for(int i = 0; i < AC.hsize; ++i)
 			for(int j = 0; j < BC.hsize; ++j)
 			{
+				CollisionData temp = HullCollision(AT.getGlobalTransform() * AC.hull[i],
+												   BT.getGlobalTransform() * BC.hull[j]);
 
-			CollisionData temp = HullCollision(AT.getGlobalTransform() * AC.hull,
-											   BT.getGlobalTransform() * BC.hull);
-
-			if(temp.penetrationDepth < retval.penetrationDepth)
-				retval = temp;
+				if (temp.penetrationDepth > retval.penetrationDepth)
+				{			
+					retval = temp;
+				}
 			}
-
-		*/
 	}
 	return retval;
 
@@ -80,7 +133,7 @@ CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
 
 CollisionData StaticResolution(Transform & AT, Rigidbody &AR, const Collider & AC, 
 						 const Transform & BT, const Collider & BC,
-						 float Bounce = 1)
+						 float Bounce)
 {
 	CollisionData results = ColliderCollision(AT, AC, BT, BC);
 
@@ -105,24 +158,32 @@ CollisionData DynamicResolution(Transform & AT, Rigidbody & AR, const Collider &
 
 	if (results.penetrationDepth >= 0)
 	{
+		////////////CORRETION FOR COLLISION/////////////
 		vec2 MTV = results.penetrationDepth * results.collisionNormal;
 
-		AT.m_position -= MTV / 2;
-		BT.m_position += MTV / 2;
+		float am = magnitude(AR.mass * AR.velocity) + 0.0000001f;
+		float bm = magnitude(BR.mass * BR.velocity) + 0.0000001f;
+		float cm = am + bm;
 
-		vec2 Av = AR.velocity;
-		float Am = AR.mass;
-	
-		vec2 Bv = AR.velocity;
-		float Bm = AR.mass;
-		vec2 X;
-		vec2 Y;
+		AT.m_position -= MTV * ( 1- am / cm);
+		BT.m_position += MTV * (1 - bm / cm);
 
-		X = (Av * Am + Bv * Bm + (-Bounce*(Av - Bv))
-					 * Bm) / (Bm + Am);
+		//////////RESOLUTION////////////
 
-		Y = Bounce * (Av - Bv) + (Av * Am + Bv * Bm 
-				  + (-Bounce * (Av - Bv)) * Bm) / (Bm - Am);
+		vec2 a = AR.velocity; // VELOCITY FOR A
+		float p = AR.mass;    // MASS FOR A
+		vec2 X;               // FINAL VELOCITY FOR A
+
+		vec2 b = AR.velocity; // VELOCITY FOR B
+		float q = AR.mass;    // MASS FOR B
+		vec2 Y;               // FINAL VELOCITY FOR B
+
+		float E = Bounce;
+		/////SOLVING EQUATION////////
+		X = (a*p + b*q + -E*(a-b)*q) / (q+p);
+
+		Y = E*(a - b) + X;
+
 		AR.velocity = X;
 		BR.velocity = Y;
 	}
