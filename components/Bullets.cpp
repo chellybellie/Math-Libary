@@ -6,7 +6,7 @@ Bullet::Bullet()
 
 	vec2 hullverts[] = { {-.1f,0},{0,.2f},{.1f,0} };
 	collider = Collider(hullverts, 3);
-	transform.m_scale = vec2{ 4,4 };
+	transform.m_scale = vec2{ 40,40 };
 	rigidbody.mass = 15;
 }
 
@@ -24,6 +24,7 @@ void Bullet::update(float deltatime, GameState & gs)
 void Bullet::draw(const mat3 & camera)
 {
 	if (!isAlive) return;
+
 	transform.debugDraw(camera);
 	collider.DebugDraw(camera, transform);
 	rigidbody.debugDraw(camera, transform);
