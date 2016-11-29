@@ -26,6 +26,26 @@ void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 					  as2.transform, as2.rigidbody, as2.collider);
 }
 
+//void PlayerShipChildCollision(Playership & player, ShipChild & sc )
+//{
+//	CollisionData result =
+//		DynamicResolution(player.transform, player.rigidbody, player.collider,
+//			sc.transform, sc.rigidbody, sc.collider);
+//
+//	////penatly for hitting objects////
+//	if (result.penetrationDepth >= 0)
+//	{////TO:DO/////
+//		player.health - .5f;
+//	}
+//
+//}
+
+void ShipChildCollision(Asteroid & as, ShipChild & sc2)
+{
+	DynamicResolution(as.transform, as.rigidbody, as.collider,
+		sc2.transform, sc2.rigidbody, sc2.collider);
+}
+
 void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 {
 	////MAKES SURE BULLET IS ALIVE///
@@ -43,6 +63,27 @@ void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 		{
 			b.timer = 0;
 		}
+
+
+}
+
+void UltimateAsteroidCollision(Ultimate & U, Asteroid & a)
+{
+	////MAKES SURE BULLET IS ALIVE///
+	if (!U.isAlive) return;
+
+	////USE DYNAMIC TO MKAE BULLET INTERACT WITH OTHER OBJECTS////
+	CollisionData result =
+		DynamicResolution(U.transform, U.rigidbody, U.collider,
+			a.transform, a.rigidbody, a.collider);
+
+
+
+	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
+	if (result.penetrationDepth >= 0)
+	{
+		U.timer = 0;
+	}
 
 
 }

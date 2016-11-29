@@ -27,6 +27,7 @@ void Bullet::draw(const mat3 & camera)
 	if (!isAlive) return;
 	
 	transform.debugDraw(camera);
+	
 	collider.DebugDraw(camera, transform);
 	//rigidbody.debugDraw(camera, transform); /// HIDES RED LINE ON BULLETS///
 }

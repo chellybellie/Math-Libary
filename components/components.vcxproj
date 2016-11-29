@@ -130,10 +130,12 @@
     <ClCompile Include="PlanetRenderer.cpp" />
     <ClCompile Include="Playership.cpp" />
     <ClCompile Include="ridgedbody.cpp" />
+    <ClCompile Include="spaceship Child.cpp" />
     <ClCompile Include="Spaceshipcontroller.cpp" />
     <ClCompile Include="Spaceshiplocomotion.cpp" />
     <ClCompile Include="SpaceshipRenderer.cpp" />
     <ClCompile Include="transform.cpp" />
+    <ClCompile Include="Ultimate wepon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
@@ -146,11 +148,13 @@
     <ClInclude Include="planetmotor.h" />
     <ClInclude Include="PlanetRenderer.h" />
     <ClInclude Include="Playership.h" />
+    <ClInclude Include="spaceship Child.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Ridgedbody.h" />
     <ClInclude Include="Spaceshipcontroller.h" />
     <ClInclude Include="SpaceshipRenderer.h" />
     <ClInclude Include="transform.h" />
+    <ClInclude Include="Ultimate wepon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

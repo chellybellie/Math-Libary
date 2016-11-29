@@ -1,23 +1,30 @@
 #include "gamestate.h"
 #include "ObjectCollision.h"
 #include "Asteroid.h"
+#include "Spaceship.h"
 
 void GameState::play()
 {
-	player.transform.m_position = vec2{ 200,200 };
+	player.transform.m_position = vec2{ 200,100 };
 	player.transform.m_facing = 0;
 
-	asteroid[0].transform.m_parent = &player.transform;	// bottom right
-	asteroid[0].transform.m_position = (vec2{ 10,-2 });	
+	asteroid.transform.m_position = (vec2{ 200,1000 });
 
-	asteroid[1].transform.m_parent = &player.transform;// bottom left
-	asteroid[1].transform.m_position = (vec2{ -10,-2 });
+	shipchild[0].transform.m_parent = &player.transform;	// bottom right
+	shipchild[0].transform.m_position = (vec2{ 10,-2 });	
+	shipchild[0].offset = 0;
 
-	asteroid[2].transform.m_parent = &player.transform; // mid left
-	asteroid[2].transform.m_position = (vec2{ -5,2 });
+	shipchild[1].transform.m_parent = &player.transform;// bottom left
+	shipchild[1].transform.m_position = (vec2{ -10,-2 });
+	shipchild[1].offset = 0;
 
-	asteroid[3].transform.m_parent = &player.transform; // mid right
-	asteroid[3].transform.m_position = (vec2{ 5, 2});
+	shipchild[2].transform.m_parent = &player.transform; // mid left
+	shipchild[2].transform.m_position = (vec2{ -5,2 });
+	shipchild[2].offset = .5;
+
+	shipchild[3].transform.m_parent = &player.transform; // mid right
+	shipchild[3].transform.m_position = (vec2{ 5, 2});
+	shipchild[3].offset = .5;
 }
 
 
@@ -27,18 +34,20 @@ void GameState::update(float deltatime)
 	Camera.update(deltatime, *this);
 
 	for (int i = 0; i < 4; ++i)
-		asteroid[i].update(deltatime, *this);
+		shipchild[i].update(deltatime, *this);
 
-	for (int i = 0; i < 4; ++i)
-		PlayerAstroidCollision(player, asteroid[i]);
+		PlayerAstroidCollision(player, asteroid);
 
 	for (int i = 0; i < 4 - 1; ++i)
 		for (int j = i + 1; j < 4; ++j)
-			AsteroidCollision(asteroid[i], asteroid[j]);
+			ShipChildCollision(asteroid, shipchild[j]);
 	
 	for (int i = 0; i < player.BULLET_COUNT; ++i)
 		for (int j = 0; j < 4; ++j)
-			BulletAsteroidCollision(player.bullets[i], asteroid[j]);
+			BulletAsteroidCollision(player.bullets[i], asteroid);
+	for (int i = 0; i < 1; ++i)
+		for (int j = 0; j < 4; ++j)
+			UltimateAsteroidCollision(player.ultimate, asteroid);
 }
 
 void GameState::draw()
@@ -46,8 +55,8 @@ void GameState::draw()
 	mat3 cam = Camera.getcameraMatrix();
 	player.draw(cam);
 	//player.drawHealth();
-
+	asteroid.draw(cam);
 	for (int i = 0; i < 4; ++i)
-		asteroid[i].draw(cam);
+		shipchild[i].draw(cam);
 
 }

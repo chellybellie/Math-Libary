@@ -4,6 +4,8 @@
 #include "camera.h"
 #include "Asteroid.h"
 #include "Bullets.h"
+#include "spaceship Child.h"
+
 
 class GameState
 {
@@ -13,7 +15,9 @@ public:
 
 	Playership  player;
 	camera		Camera;
-	Asteroid	asteroid[5];
+	Asteroid	asteroid;
+	ShipChild	shipchild[5];
+
 	void play();
 	void update(float deltatime);
 	void draw();

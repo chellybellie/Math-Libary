@@ -47,6 +47,52 @@ Playership::Playership()
 
 }
 
+void Playership::spawnBullet(const Transform & trans)
+{
+	int bulletID = -1;
+
+	// find a bullet to use
+	for (int i = 0; i < BULLET_COUNT; ++i)
+	{
+		if (!bullets[i].isAlive)
+		{
+			bulletID = i;
+			break;
+		}
+	}
+
+	if (bulletID != -1)
+	{
+		Bullet& myBullet = bullets[bulletID];
+
+		// reset the bullet
+		myBullet.isAlive = true;
+		myBullet.timer = 5.f;
+		myBullet.transform.m_position = transform.m_position;
+		myBullet.transform.m_facing = transform.m_facing;
+
+		myBullet.rigidbody.velocity = vec2{ 0,0 };
+
+		myBullet.rigidbody.addImpulde(transform.getUp() * 10000.f);
+	}
+
+}
+
+void Playership::spawnUltimate(const Transform & trans)
+{
+	if (UltimateTimer <= 0.f)
+	{
+		////reset Ultimate////
+		ultimate.isAlive = true;
+		ultimate.timer = 4.f;
+		ultimate.transform.m_position = transform.m_position;
+		ultimate.transform.m_facing = transform.m_facing;
+		ultimate.rigidbody.velocity = vec2{ 0,0 };
+		ultimate.rigidbody.addImpulde(transform.getUp() * 10000.f);
+
+	}
+}
+
 void Playership::drawHealth()
 {
 // TODO//
@@ -60,49 +106,34 @@ void Playership::update(float deltaTime, GameState & gs)
 	// shooting delay
 	bullerTimer -= deltaTime;
 
-	if (sfw::getKey('1') && bullerTimer <= 0.0f )
+	if (sfw::getKey('1') && bullerTimer <= 0.0f)
 	{
-		int bulletID = -1;
+		spawnBullet(transform);
 
-		// find a bullet to use
-		for (int i = 0; i < BULLET_COUNT; ++i)
-		{
-			if (!bullets[i].isAlive)
-			{
-				bulletID = i;
-				break;
-			}
-		}
-
-		if (bulletID != -1)
-		{
-			Bullet& myBullet = bullets[bulletID];
-
-			// reset the bullet
-			myBullet.isAlive = true;
-			myBullet.timer = 5.f;
-			myBullet.transform.m_position = transform.m_position;
-			myBullet.transform.m_facing = transform.m_facing;
-
-			myBullet.rigidbody.velocity = vec2{ 0,0 };
-
-			myBullet.rigidbody.addImpulde(transform.getUp() * 10000.f);
-
-			bullerTimer = .3f;
-		}
+		bullerTimer = .3f;
 	}
 
 	for (int i = 0; i < BULLET_COUNT; ++i)
 		bullets[i].update(deltaTime, gs);
+	//ULTIMATE WEPON SHOOTING////
 
+	if (sfw::getKey('2') && UltimateTimer <= 0.0f)
+	{
+		for (int i = 0; i < 4; ++i)
+			gs.shipchild[i].activate();
+			
+	}
+	if(ultimate.isAlive)
+		ultimate.update(deltaTime, gs);
 }
-
 void Playership::draw(const mat3 &camera)
 {
 	transform.debugDraw(camera);
 	drawship.draw(camera, transform);
 	//collider.DebugDraw(camera, transform); // SHOWS THE HULL[] ( COLLIER OUTLINE) 
+
 	rigidbody.debugDraw(camera, transform);
+	ultimate.draw(camera);
 
 	for (int i = 0; i < BULLET_COUNT; ++i)
 		bullets[i].draw(camera);

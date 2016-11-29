@@ -2,31 +2,62 @@
 
 Asteroid::Asteroid()
 {
-	vec2 hullVrts1[] = { { -1,0 },{ 0,2 },{ 1,0 },{0,-1 } };
+
+
+		vec2 hullVrts1[] = { { -3,2 },{ 0,3 },{ 3,2 } }; // NOSE-TRI
+
+		vec2 hullVrts2[] = { { -1,1 },{ -3,2 },{ -2,-1 } }; // LEFT-CROWN
+
+		vec2 hullVrts3[] = { { -2,-1 },{ -4.5,-1 },{ -3,2 } }; // LEFT-UPPER-WING
+
+		vec2 hullVrts4[] = { { -2,-1 },{ 0,-6 },{ -4.5,-1 } }; // LEFT-LOWER-WING
+
+		vec2 hullVrts5[] = { { -1,1 },{ -2,-1 },{ 0,-0.5 } }; // LEFT-MID-TRI
+
+		vec2 hullVrts6[] = { { -1,1 },{ 1,1 },{ 0,-.5 } }; // MID-TRI-COMMANDER-HALL-:P
+
+		vec2 hullVrts7[] = { { 1,1 },{ 2,-1 },{ 0,-.5 } }; // RIGHT-MID-TRI
+
+		vec2 hullVrts8[] = { { 1,1 },{ 2,-1 },{ 3,2 } }; // RIGHT-CROWN
+
+		vec2 hullVrts9[] = { { 2,-1 },{ 3,2 },{ 4.5,-1 } }; // RIGHT-UPPER-WING
+
+		vec2 hullVrts10[] = { { 2,-1 },{ 0,-6 },{ 4.5,-1 } }; // RIGHT-LOWER-WING
+
+		Hull hull[10];
+
+		hull[0] = Hull(hullVrts1, 3);
+		hull[1] = Hull(hullVrts2, 3);
+		hull[2] = Hull(hullVrts3, 3);
+		hull[3] = Hull(hullVrts4, 3);
+		hull[4] = Hull(hullVrts5, 3);
+		hull[5] = Hull(hullVrts6, 3);
+		hull[6] = Hull(hullVrts7, 3);
+		hull[7] = Hull(hullVrts8, 3);
+		hull[8] = Hull(hullVrts9, 3);
+		hull[9] = Hull(hullVrts10, 3);
+
+
+		collider = Collider(hull, 10);
+
+		transform.m_scale = { 40, 40 };
+
 	
 
-	Hull hull[1];
-	hull[0] = Hull(hullVrts1, 4);
 
-	collider = Collider(hull, 1);
-
-	
-	transform.m_scale		= { 1.f, 1.f };
-	rigidbody.drag			= 0.0f;
-	rigidbody.angularDrag	= 0.0f;
-	rigidbody.mass			= 10;
-	rigidbody.torque		= 0.0f;
 
 }
 
 void Asteroid::update(float deltatime, GameState & gs)
 {
 	rigidbody.integrate(transform, deltatime);
+
+
 }
 
 void Asteroid::draw(const mat3 & camera)
 {
 	transform.debugDraw(camera);
-	collider.DebugDraw(camera, transform);
 	rigidbody.debugDraw(camera, transform);
+	collider.DebugDraw(camera, transform); //// hull drawer
 }
