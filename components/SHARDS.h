@@ -1,20 +1,25 @@
 #pragma once
+
 #include "transform.h"
 #include "Collider.h"
 #include "Ridgedbody.h"
 #include "Spaceship.h"
+#include "Asteroid.h"
 
-class Asteroid
+
+class Shard
 {
 
 public:
 	Transform  transform;
 	Collider   collider;
 	Rigidbody  rigidbody;
+	Asteroid   asteroid;
 
-	int health;
-	Asteroid();
-	
+
+	Shard();
+
+
 	void update(float deltatime, class GameState &gs);
 	void draw(const mat3 &camera);
 };

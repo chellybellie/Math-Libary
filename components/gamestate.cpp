@@ -10,6 +10,18 @@ void GameState::play()
 
 	asteroid.transform.m_position = (vec2{ 200,1000 });
 
+	for (int i = 0; i < 3; ++i)
+	{
+		shards[i].transform.m_parent = &asteroid.transform;
+	}
+	shards[0].transform.m_position = (vec2{ 1,-3 });
+	shards[0].transform.m_facing = 0;
+	shards[1].transform.m_position = (vec2{ -1,-2 });
+	shards[2].transform.m_position = (vec2{ 1,10 });
+
+	/////////// attaching spacechildren to "mothership"  //////////
+	////////// adding offset timers for animation effects//////////
+
 	shipchild[0].transform.m_parent = &player.transform;	// bottom right
 	shipchild[0].transform.m_position = (vec2{ 10,-2 });	
 	shipchild[0].offset = 0;
@@ -58,5 +70,8 @@ void GameState::draw()
 	asteroid.draw(cam);
 	for (int i = 0; i < 4; ++i)
 		shipchild[i].draw(cam);
+
+	for (int i = 0; i < 3; ++i)
+		shards[i].draw(cam);
 
 }

@@ -4,8 +4,8 @@
 
 ShipChild::ShipChild()
 {
-	vec2 hullVrts1[] = { { -1,0 },{ 0,2 },{ 1,0 },{0,-1 } };
-	
+	vec2 hullVrts1[] = { { -1,0 },{ 0,2 },{ 1,0 },{ 0,-1 } };
+
 
 	Hull hull[1];
 	hull[0] = Hull(hullVrts1, 4);
@@ -32,7 +32,7 @@ void ShipChild::update(float deltatime, GameState & gs)
 
 
 		gs.player.spawnUltimate(transform);
-		//gs.player.spawnBullet(transform);
+	
 	}
 }
 
@@ -43,14 +43,14 @@ void ShipChild::draw(const mat3 & camera)
 
 	if (timer > 0)
 	{
-		if (timer >= 2.f);
-		else if (timer >= 1.2f)
+		if (timer >= 1.5f);
+		else if (timer >= 1.f)
 			drawEffect0(transform, camera);
 
 		else if (timer >= .6f)
 			drawEffect1(transform, camera);
 
-		else if(timer >= 0.f)
+		else if(timer >= .2f)
 			drawEffect2(transform, camera);
 	}
 }
@@ -58,7 +58,7 @@ void ShipChild::draw(const mat3 & camera)
 void ShipChild::activate()
 {
 	active = true;
-	timer = 2 + offset;
+	timer = 1.5 + offset;
 }
 
 
@@ -78,14 +78,14 @@ void ShipChild::drawEffect1(Transform & planeTrans, const mat3 & T)
 	vec3 QL4 = glob * vec3{ -11,-15 ,1 };
 	vec3 QL5 = glob * vec3{ -13,-9 ,1 };
 
-	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, RED);
-	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, RED);
-	sfw::drawLine(L3.x, L3.y, L4.x, L4.y, RED);
+	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, BLUE);
+	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, BLUE);
+	sfw::drawLine(L3.x, L3.y, L4.x, L4.y, BLUE);
 
-	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, RED);
-	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, RED);
-	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, RED);
-	sfw::drawLine(QL4.x, QL5.y, QL3.x, QL5.y, RED);
+	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, BLUE);
+	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, BLUE);
+	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, BLUE);
+	sfw::drawLine(QL4.x, QL5.y, QL3.x, QL5.y, BLUE);
 }
 void ShipChild::drawEffect0(Transform & planeTrans, const mat3 & T)
 {
@@ -104,15 +104,15 @@ void ShipChild::drawEffect0(Transform & planeTrans, const mat3 & T)
 	vec3 QL3 = glob * vec3{ -18,8 ,1 };
 	vec3 QL4 = glob * vec3{ -7,14 ,1 };
 
-	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, RED);
-	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, RED);
+	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, BLUE);
+	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, BLUE);
 
-	sfw::drawLine(LL1.x, LL1.y, LL2.x, LL2.y, RED);
-	sfw::drawLine(LL2.x, LL2.y, LL3.x, LL3.y, RED);
+	sfw::drawLine(LL1.x, LL1.y, LL2.x, LL2.y, BLUE);
+	sfw::drawLine(LL2.x, LL2.y, LL3.x, LL3.y, BLUE);
 
-	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, RED);
-	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, RED);
-	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, RED);
+	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, BLUE);
+	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, BLUE);
+	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, BLUE);
 }
 void ShipChild::drawEffect2(Transform & planeTrans, const mat3 & T)
 {
@@ -134,17 +134,17 @@ void ShipChild::drawEffect2(Transform & planeTrans, const mat3 & T)
 	vec3 QL4 = glob * vec3{ -18,0 ,1 };
 	vec3 QL5 = glob * vec3{ -16,-4 ,1 };
 
-	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, RED);
-	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, RED);
-	sfw::drawLine(L4.x, L4.y, L3.x, L3.y, RED);
+	sfw::drawLine(L1.x, L1.y, L2.x, L2.y, BLUE);
+	sfw::drawLine(L2.x, L2.y, L3.x, L3.y, BLUE);
+	sfw::drawLine(L4.x, L4.y, L3.x, L3.y, BLUE);
 
-	sfw::drawLine(LL1.x, LL1.y, LL2.x, LL2.y, RED);
-	sfw::drawLine(LL2.x, LL2.y, LL3.x, LL3.y, RED);
-	sfw::drawLine(LL4.x, LL4.y, LL3.x, LL3.y, RED);
+	sfw::drawLine(LL1.x, LL1.y, LL2.x, LL2.y, BLUE);
+	sfw::drawLine(LL2.x, LL2.y, LL3.x, LL3.y, BLUE);
+	sfw::drawLine(LL4.x, LL4.y, LL3.x, LL3.y, BLUE);
 
-	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, RED);
-	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, RED);
-	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, RED);
-	sfw::drawLine(QL4.x, QL4.y, QL5.x, QL5.y, RED);
+	sfw::drawLine(QL1.x, QL1.y, QL2.x, QL2.y, BLUE);
+	sfw::drawLine(QL2.x, QL2.y, QL3.x, QL3.y, BLUE);
+	sfw::drawLine(QL4.x, QL4.y, QL3.x, QL3.y, BLUE);
+	sfw::drawLine(QL4.x, QL4.y, QL5.x, QL5.y, BLUE);
 
 }

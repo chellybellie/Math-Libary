@@ -6,7 +6,7 @@
 
 Ultimate::Ultimate()
 {
-	vec2 hullverts[] = { { -.5f,0 },{ 0,1.f },{ .5f,0 },{ 0,-1.f } };
+	vec2 hullverts[] = { { -.5f,7.5 },{ 0,6.5f },{ .5f,7.5 },{ 0,8.5f } };
 	collider = Collider(hullverts, 4);
 	transform.m_scale = vec2{ 30,30 };
 	rigidbody.mass = 15;
@@ -22,7 +22,6 @@ void Ultimate::update(float deltatime, GameState & gs)
 	if (!isAlive) return;
 
 	rigidbody.integrate(transform, deltatime);
-
 	timer -= deltatime;
 	isAlive = timer > 0;
 }

@@ -9,7 +9,7 @@ class Collider
 {
 public:
 	AABB box;
-	Hull hull[10];
+	Hull hull[5];
 	int hsize;
 	
 	Collider();

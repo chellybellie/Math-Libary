@@ -64,6 +64,12 @@ void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 			b.timer = 0;
 		}
 
+		////health subtraction for shooting asteroid////
+		if (result.penetrationDepth >= 0)
+		{
+			a.health - 5.f;
+		}
+
 
 }
 
@@ -77,7 +83,11 @@ void UltimateAsteroidCollision(Ultimate & U, Asteroid & a)
 		DynamicResolution(U.transform, U.rigidbody, U.collider,
 			a.transform, a.rigidbody, a.collider);
 
-
+	////health subtraction for shooting asteroid////
+	if (result.penetrationDepth >= 0)
+	{
+		a.health - 10.f;
+	}
 
 	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
 	if (result.penetrationDepth >= 0)
