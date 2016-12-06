@@ -1,11 +1,13 @@
 #include "Asteroid.h"
-
+#include "SHARDS.h"
+#include "gamestate.h"
 
 
 
 /////////////ASTEROID CORE///////////
 Asteroid::Asteroid()
 {
+	isAlive = true;
 
 	health = 100;
 
@@ -32,18 +34,32 @@ Asteroid::Asteroid()
 	collider = Collider(hull, 5);
 
 	transform.m_scale = { 40, 40 };
+	rigidbody.mass = 999;
+
+	
 }
 
 void Asteroid::update(float deltatime, GameState & gs)
 {
-	rigidbody.integrate(transform, deltatime);
-
-
+	if (!isAlive) return;
+	if (health < 0)
+	{
+		isAlive = false;
+		for(int i = 0; i < 5; ++i)
+		{
+			gs.shards[i].collider = Collider(collider.hull[i].vertices, collider.hull[i].size);
+			gs.shards[i].transform = transform;		
+			gs.shards[i].rigidbody.addImpulde(rigidbody.randDir() * 10);
+			gs.shards[i].isAlive = true;
+		}
+	}
+	//rigidbody.integrate(transform, deltatime);
 }
 
 void Asteroid::draw(const mat3 & camera)
 {
-	transform.debugDraw(camera);
-	rigidbody.debugDraw(camera, transform);
-	collider.DebugDraw(camera, transform); //// hull drawer
+	if (!isAlive) return;
+		transform.debugDraw(camera);
+		rigidbody.debugDraw(camera, transform);
+		collider.DebugDraw(camera, transform);//// hull drawer
 }

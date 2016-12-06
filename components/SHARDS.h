@@ -4,7 +4,7 @@
 #include "Collider.h"
 #include "Ridgedbody.h"
 #include "Spaceship.h"
-#include "Asteroid.h"
+
 
 
 class Shard
@@ -14,12 +14,15 @@ public:
 	Transform  transform;
 	Collider   collider;
 	Rigidbody  rigidbody;
-	Asteroid   asteroid;
+	
 
 
 	Shard();
 
-
+	bool isAlive;
+	int health;
+	
 	void update(float deltatime, class GameState &gs);
 	void draw(const mat3 &camera);
 };
+

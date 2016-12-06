@@ -2,22 +2,13 @@
 #include "ObjectCollision.h"
 #include "collsion.h"
 #include "vec-2.h"
-
-
 #include <iostream>
 
 void PlayerAstroidCollision(Playership & player, Asteroid & as)
 {
 	CollisionData result =
-		DynamicResolution(player.transform, player.rigidbody, player.collider,
-						  as.transform, as.rigidbody, as.collider);
-
-	////penatly for hitting objects////
-	if (result.penetrationDepth >= 0)
-	{////TO:DO/////
- 		player.health - .5f;
-	}
-
+		StaticResolution(player.transform, player.rigidbody, player.collider,
+						  as.transform, as.collider);
 }
 
 void AsteroidCollision(Asteroid & as1, Asteroid & as2)
@@ -26,35 +17,22 @@ void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 					  as2.transform, as2.rigidbody, as2.collider);
 }
 
-//void PlayerShipChildCollision(Playership & player, ShipChild & sc )
-//{
-//	CollisionData result =
-//		DynamicResolution(player.transform, player.rigidbody, player.collider,
-//			sc.transform, sc.rigidbody, sc.collider);
-//
-//	////penatly for hitting objects////
-//	if (result.penetrationDepth >= 0)
-//	{////TO:DO/////
-//		player.health - .5f;
-//	}
-//
-//}
-
 void ShipChildCollision(Asteroid & as, ShipChild & sc2)
 {
-	DynamicResolution(as.transform, as.rigidbody, as.collider,
-		sc2.transform, sc2.rigidbody, sc2.collider);
+	StaticResolution(as.transform, as.rigidbody, as.collider,
+		sc2.transform, sc2.collider);
 }
 
 void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 {
+	
 	////MAKES SURE BULLET IS ALIVE///
 	if (!b.isAlive) return;
 
 	////USE DYNAMIC TO MKAE BULLET INTERACT WITH OTHER OBJECTS////
 		CollisionData result =
-		DynamicResolution(b.transform, b.rigidbody, b.collider,
-			a.transform, a.rigidbody, a.collider);
+		StaticResolution(b.transform, b.rigidbody, b.collider,
+			a.transform, a.collider);
 
 
 
@@ -67,11 +45,16 @@ void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 		////health subtraction for shooting asteroid////
 		if (result.penetrationDepth >= 0)
 		{
-			a.health - 5.f;
+			a.health -= 10.f;
+			printf("%d \n", a.health);
 		}
-
-
+		//if (a.health <= 0)
+		//{
+		//	a.isAlive = false;
+		//	
+		//}
 }
+
 
 void UltimateAsteroidCollision(Ultimate & U, Asteroid & a)
 {
@@ -80,14 +63,17 @@ void UltimateAsteroidCollision(Ultimate & U, Asteroid & a)
 
 	////USE DYNAMIC TO MKAE BULLET INTERACT WITH OTHER OBJECTS////
 	CollisionData result =
-		DynamicResolution(U.transform, U.rigidbody, U.collider,
-			a.transform, a.rigidbody, a.collider);
+		StaticResolution(U.transform, U.rigidbody, U.collider,
+			a.transform, a.collider);
 
 	////health subtraction for shooting asteroid////
 	if (result.penetrationDepth >= 0)
 	{
-		a.health - 10.f;
+		a.health -= 50.f;
+		printf("%d \n \n", a.health);
 	}
+	Shard shard;
+	if (a.health <= 0)
 
 	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
 	if (result.penetrationDepth >= 0)
@@ -97,3 +83,59 @@ void UltimateAsteroidCollision(Ultimate & U, Asteroid & a)
 
 
 }
+
+void UltimateAsteroidCollision(Ultimate & U, Shard & s)
+{
+	////MAKES SURE BULLET IS ALIVE///
+	if (!U.isAlive) return;
+	
+	////USE DYNAMIC TO MKAE BULLET INTERACT WITH OTHER OBJECTS////
+	CollisionData result =
+		DynamicResolution(U.transform, U.rigidbody, U.collider,
+			s.transform, s.rigidbody, s.collider);
+
+	////health subtraction for shooting asteroid////
+	if (result.penetrationDepth >= 0)
+	{
+		s.health -= 50.f;
+
+	}
+	if (s.health <= 0)
+	{
+		s.rigidbody.force = {10,10};
+	}
+
+	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
+	if (result.penetrationDepth >= 0)
+	{
+		U.timer = 0;
+	}
+}
+
+void BulletAsteroidCollision(Bullet & b, Shard & s)
+{
+	////MAKES SURE BULLET IS ALIVE///
+	if (!b.isAlive) return;
+
+	////USE DYNAMIC TO MKAE BULLET INTERACT WITH OTHER OBJECTS////
+	CollisionData result =
+		DynamicResolution(b.transform, b.rigidbody, b.collider,
+			s.transform, s.rigidbody, s.collider);
+
+
+
+	////SETS TIMER TO 0 SO WE CAN SHOOT BULLET AGAIN////
+	if (result.penetrationDepth >= 0)
+	{
+		b.timer = 0;
+	}
+
+	////health subtraction for shooting asteroid////
+	if (result.penetrationDepth >= 0)
+	{
+		s.health -= 10.f;
+
+	}
+
+}
+

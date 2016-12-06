@@ -16,7 +16,9 @@ public:
 	vec2 acceleration;		   // represents the change in velocity
 
 
-
+	vec2 randDir();
+	float rand11();
+	float mag();
 	
 	float torque;
 	float angularVelocity;     //represents the change in rotation

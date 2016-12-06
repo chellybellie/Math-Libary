@@ -18,7 +18,9 @@ public:
 	camera		Camera;
 	Asteroid	asteroid;
 	ShipChild	shipchild[5];
-	Shard		shards[3];
+
+	const static int SHARD_COUNT = 5;
+	Shard		shards[SHARD_COUNT];
 
 	void play();
 	void update(float deltatime);

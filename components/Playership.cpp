@@ -6,6 +6,7 @@
 
 Playership::Playership()
 {
+	////HULL DRAWER////
 	vec2 hullVrts1[] = { { 0,8.5 },{ -1,1 },{ 1,1 } }; // NOSE-TRI
 
 	vec2 hullVrts2[] = { { -1,1 },{ -3,2 },{ -2,-1 } }; // LEFT-CROWN
@@ -39,10 +40,10 @@ Playership::Playership()
 	hull[8] = Hull(hullVrts9,  3);
 	hull[9] = Hull(hullVrts10, 3);
 
-	
-	health = 100;
-	collider = Collider(hull, 10);
+	/////HEALTH TO DO/////
 
+	collider = Collider(hull, 10);
+	
 	transform.m_scale = { 20, 20 };
 
 }
@@ -84,11 +85,11 @@ void Playership::spawnUltimate(const Transform & trans)
 	{
 		////reset Ultimate////
 		ultimate.isAlive = true;
-		ultimate.timer = 4.f;
+		ultimate.timer = 10.f;
 		ultimate.transform.m_position = transform.m_position;
 		ultimate.transform.m_facing = transform.m_facing;
 		ultimate.rigidbody.velocity = vec2{ 0,0 };
-		ultimate.rigidbody.addImpulde(transform.getUp() * 10000.f);
+		ultimate.rigidbody.addImpulde(transform.getUp() * 15000.f);
 
 	}
 }
@@ -130,7 +131,7 @@ void Playership::draw(const mat3 &camera)
 {
 	transform.debugDraw(camera);
 	drawship.draw(camera, transform);
-	//collider.DebugDraw(camera, transform); // SHOWS THE HULL[] ( COLLIER OUTLINE) 
+	//collider.DebugDraw(camera, transform); // SHOWS THE HULL[] ( COLLIdER OUTLINE) 
 
 	rigidbody.debugDraw(camera, transform);
 	ultimate.draw(camera);

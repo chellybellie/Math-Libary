@@ -14,6 +14,7 @@ public:
 
 	int health;
 	Asteroid();
+	bool isAlive;
 	
 	void update(float deltatime, class GameState &gs);
 	void draw(const mat3 &camera);

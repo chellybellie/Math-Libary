@@ -2,6 +2,7 @@
 #include "drawshape.h"
 #include <cmath>
 #include <cassert>
+#include <cstdio>
 
 
 Collider::Collider(const vec2 * verts, int size)
@@ -90,7 +91,7 @@ void Collider::DebugDraw(const mat3 & T, const Transform & trans)
 {
 	mat3 glob = T * trans.getGlobalTransform();
 
-//	drawAABB(glob  * box, 0x888888ff); /// DRAWS COLLIDER RECONIGTION BOX
+	//drawAABB(glob  * box, 0x888888ff); //// DRAWS COLLIDER RECONIGTION BOX
 	for(int i = 0; i < hsize; ++i)
 		drawHull(glob * hull[i], 0x888888ff);
 }
@@ -121,12 +122,14 @@ CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
 				CollisionData temp = HullCollision(AT.getGlobalTransform() * AC.hull[i],
 												   BT.getGlobalTransform() * BC.hull[j]);
 
+			
 				if (temp.penetrationDepth > retval.penetrationDepth)
 				{			
 					retval = temp;
 				}
 			}
 	}
+	
 	return retval;
 
 }
@@ -145,7 +148,7 @@ CollisionData StaticResolution(Transform & AT, Rigidbody &AR, const Collider & A
 
 				AR.velocity = Reflection(AR.velocity , results.collisionNormal) * Bounce;
 	}
-	return CollisionData();
+	return results;
 }
 
 CollisionData DynamicResolution(Transform & AT, Rigidbody & AR, const Collider & AC, 
@@ -174,8 +177,8 @@ CollisionData DynamicResolution(Transform & AT, Rigidbody & AR, const Collider &
 		float p = AR.mass;    // MASS FOR A
 		vec2 X;               // FINAL VELOCITY FOR A
 
-		vec2 b = AR.velocity; // VELOCITY FOR B
-		float q = AR.mass;    // MASS FOR B
+		vec2 b = BR.velocity; // VELOCITY FOR B
+		float q = BR.mass;    // MASS FOR B
 		vec2 Y;               // FINAL VELOCITY FOR B
 
 		float E = Bounce;
@@ -186,6 +189,7 @@ CollisionData DynamicResolution(Transform & AT, Rigidbody & AR, const Collider &
 
 		AR.velocity = X;
 		BR.velocity = Y;
+
 	}
 	
 	return results;

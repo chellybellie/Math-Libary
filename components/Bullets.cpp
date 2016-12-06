@@ -8,6 +8,7 @@ Bullet::Bullet()
 	collider = Collider(hullverts, 4);
 	transform.m_scale = vec2{ 30,30 };
 	rigidbody.mass = 15;
+	rigidbody.velocity = vec2 {0,0};
 }
 
 void Bullet::update(float deltatime, GameState & gs)

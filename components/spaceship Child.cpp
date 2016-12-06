@@ -13,6 +13,7 @@ ShipChild::ShipChild()
 	collider = Collider(hull, 1);
 
 	transform.m_scale = { 1.f, 1.f };
+	rigidbody.mass = 500;
 
 	timer = 0;
 }
@@ -65,7 +66,7 @@ void ShipChild::activate()
 
 void ShipChild::drawEffect1(Transform & planeTrans, const mat3 & T)
 {
-	mat3 glob = T * planeTrans.getGlobalTransform()  * scale(.1f, .1f);
+	mat3 glob = T * planeTrans.getGlobalTransform()  * scale(.2f, .2f);
 
 	vec3 L1 = glob * vec3{ 9,2 ,1 };
 	vec3 L2 = glob * vec3{ 11,4 ,1 };
@@ -89,7 +90,7 @@ void ShipChild::drawEffect1(Transform & planeTrans, const mat3 & T)
 }
 void ShipChild::drawEffect0(Transform & planeTrans, const mat3 & T)
 {
-	mat3 glob = T* planeTrans.getGlobalTransform() * scale(.1f, .1f);
+	mat3 glob = T* planeTrans.getGlobalTransform() * scale(.2f, .2f);
 
 	vec3 L1 = glob * vec3{ 10,3 ,1 };
 	vec3 L2 = glob *vec3{ 12,6 ,1 };
@@ -116,7 +117,7 @@ void ShipChild::drawEffect0(Transform & planeTrans, const mat3 & T)
 }
 void ShipChild::drawEffect2(Transform & planeTrans, const mat3 & T)
 {
-	mat3 glob = T * planeTrans.getGlobalTransform()  * scale(.1f, .1f);
+	mat3 glob = T * planeTrans.getGlobalTransform()  * scale(.2f, .2f);
 
 	vec3 L1 = glob * vec3{ 0,12 ,1 };
 	vec3 L2 = glob *vec3{ 3,15 ,1 };
